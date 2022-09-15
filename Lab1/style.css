@@ -77,6 +77,7 @@ p  {
     color: blue;
     border: 2px solid brown;
     padding: 10px;
+    margin: 5px;
     border-radius: 5px;
     font-weight: bold;
 }
@@ -92,4 +93,8 @@ th, td {
     border: 1px solid black;
     text-align: center;
     padding: 10px;
+}
+
+.tabletech {
+    margin-bottom: 10px;
 }
