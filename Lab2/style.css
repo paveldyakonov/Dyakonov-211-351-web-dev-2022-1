@@ -1,0 +1,22 @@
+main {
+    margin: 30px;
+    margin-right: 1000px;
+}
+.marg {
+    margin: 10px;
+}
+button {
+    margin: 10px auto;
+    display: block;
+}
+footer {
+    padding: 20px 0;
+}
+.auth {
+    border: 3px solid aquamarine;
+    border-radius: 5px;
+}
+.form1 {
+    border: 3px solid aquamarine;
+    border-radius: 5px;
+}
