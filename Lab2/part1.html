@@ -9,10 +9,13 @@
     <title>Форма обратной связи</title>
 </head>
 
-<body>
-    <main>
+<body class="body1">
+    <header>
         <a href="index.html">На главную</a>
         <h1>Форма обратной связи</h1>
+    </header>
+    <main>
+        
 
         <form method="POST" action="http://httpbin.org/post" enctype="multipart/form-data" class="form1">
             <div class="marg">
@@ -50,7 +53,7 @@
                 <textarea name="msg" id="msg" cols="30" rows="10">Текст сообщения</textarea>
             </div>
             <div class="marg">
-                <input type="checkbox" name="agreement" id="agreement" value="true">
+                <input type="checkbox" name="agreement" id="agreement" value="true" required>
                 <label for="agreement">Согласен с обработкой данных</label>
             </div>
 

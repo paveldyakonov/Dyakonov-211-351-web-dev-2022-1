@@ -1,6 +1,10 @@
-main {
-    margin: 30px;
-    margin-right: 1000px;
+.body1 {
+    text-align: center;
+    margin: 0 auto;
+    margin-right: 35%;
+    margin-left: 35%;
+    background-image: url("images/1642061839_28-abrakadabra-fun-p-fon-dlya-avtorizatsii-39.jpg");
+    color: red;
 }
 .marg {
     margin: 10px;
@@ -13,10 +17,25 @@ footer {
     padding: 20px 0;
 }
 .auth {
-    border: 3px solid aquamarine;
+    border: 3px solid black;
     border-radius: 5px;
 }
 .form1 {
-    border: 3px solid aquamarine;
+    border: 3px solid black;
     border-radius: 5px;
+    
+}
+.body2 {
+    text-align: center;
+    background-image: url("images/1642061839_28-abrakadabra-fun-p-fon-dlya-avtorizatsii-39.jpg");
+    color: red;
+}
+.main2 {
+    margin: 0 auto;
+    margin-left: 40%;
+    margin-right: 40%;
+    
+}
+.body2 a, .body1 a {
+    color: aliceblue;
 }
