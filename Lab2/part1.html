@@ -20,12 +20,12 @@
         <form method="POST" action="http://httpbin.org/post" enctype="multipart/form-data" class="form1">
             <div class="marg">
                 <label for="fio">ФИО</label>
-                <input type="text" name="fio" id="fio" placeholder="Введите ФИО">
+                <input type="text" name="fio" id="fio" placeholder="Введите ФИО" required>
             </div>
 
             <div class="marg">
                 <label for="email">Адрес электронной почты</label>
-                <input type="email" name="email" id="email">
+                <input type="email" name="email" id="email" required>
             </div>
 
             <fieldset class="marg">
@@ -43,14 +43,14 @@
             </fieldset>
             <div class="marg">
                 <label for="category">Категория обращения</label>
-                <select name="category" id="category" multiple>
+                <select name="category" id="category" multiple required>
                     <option value="1">Жалоба</option>
                     <option value="2">Предложение</option>
                 </select>
             </div>
             <div class="marg">
                 <label for="msg">Текст сообщения</label>
-                <textarea name="msg" id="msg" cols="30" rows="10">Текст сообщения</textarea>
+                <textarea name="msg" id="msg" cols="30" rows="10" placeholder="Введите сообщение" required></textarea>
             </div>
             <div class="marg">
                 <input type="checkbox" name="agreement" id="agreement" value="true" required>
