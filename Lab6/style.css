@@ -1,0 +1,35 @@
+.hero {
+    background-color: lavender;
+}
+
+.logo {
+    width: 150px;
+}
+
+.main-character {
+    background-color: lavender;
+}
+
+.technologies {
+    background-color: lavender;
+}
+
+.heading-line {
+    background-color: crimson;
+    width: 200px;
+    height: 3px;
+}
+
+.contacts {
+    background-color: gainsboro;
+}
+
+.footer {
+    background-color: crimson;
+}
+
+.heading-line-foot {
+    background-color: crimson;
+    width: 300px;
+    height: 3px;
+}
