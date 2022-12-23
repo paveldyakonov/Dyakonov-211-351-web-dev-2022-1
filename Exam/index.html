@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Travel</title>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <div class="logo text-center mx-auto mx-md-5">
+                    <img class="img-fluid w-100" src="images/travel-industry-air.jpg" alt="logo">
+                </div>
+                <div class="name-company d-flex flex-column ms-5">
+                    <p class="fs-1 mb-0">PashaTravel</p>
+                    <p class="fs-5 mt-0">Экскурсии по Москве</p>
+                </div>
+                <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Административная панель</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3 mb-md-0">
+                        <div class="">
+                            <img class="img-fluid w-100" src="images/IMG_552_1647867573.jpg" alt="logo">
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center fs-2 ">
+                        Лучшие экскурсии по Москве только у нас, на рынке уже 30 лет. Огромные скидки, лучшие гиды и
+                        прочее
+                        вы найдёте в PashaTravel!
+                    </div>
+                </div>
+            </div>
+            <div class="container pt-5 routes-list">
+                <div class="routes">
+                    <p class="fs-2">Список пешеходных маршрутов</p>
+                </div>
+                <div class="row gx-0">
+                    <div class="col-10 col-md-5">
+                        <form role="search">
+                            <input class="form-control" type="search" placeholder="Поиск" aria-label="Search">
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <button type="button" class="btn btn-light">Найти</button>
+                    </div>
+                    <div class="dropdown col-12 col-md-5">
+                        <button class="btn btn-light btn-main-object dropdown-toggle float-md-end mt-3 mt-md-0"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Основной объект
+                        </button>
+                        <ul class="dropdown-menu main-objects-list">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="py-3 row">
+                    <table class="table table-bordered  table-hover">
+                        <thead class="">
+                            <tr>
+                                <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-custom-class="custom-tooltip"
+                                data-bs-title="This top tooltip is themed via CSS variables.">Название</th>
+                                <th scope="col">Описание</th>
+                                <th scope="col">Основные объекты</th>
+                                <th scope="col">Выбрать</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-routes">
+                            <tr>
+                                <th scope="row" class="">Нескучный</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td class="">
+                                    <button class="btn btn-light"
+                                            type="button" aria-expanded="false">
+                                            Да
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </header>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

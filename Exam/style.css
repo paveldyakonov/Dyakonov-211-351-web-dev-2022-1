@@ -1,0 +1,27 @@
+header {
+    background-color: #7c3a94;
+}
+
+.logo {
+    width: 200px;
+}
+
+.nav-link {
+    color: aquamarine;
+}
+
+.name-company p {
+    color: aquamarine;
+}
+
+main {
+    background-color: lightgoldenrodyellow;
+}
+
+.routes-list {
+    border: gainsboro 2px solid;
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-secondary);
+  }
