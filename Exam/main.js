@@ -191,6 +191,45 @@ function createTableElementsOnDownload(allData) {                       //Соз
 
 }
 
+function downloadMainObjectsList(data) {
+    let dropList = document.querySelector(".main-objects-list");
+    let newList = [];
+    for (let drop of data) {
+        let l = drop.mainObject.split("-");
+        for (let newObj of l) {
+            let li = document.createElement("li");
+            let a = document.createElement("a");
+            a.classList.add("dropdown-item");
+            a.setAttribute("href", "#");
+            //a.textContent = newObj;
+            if (!newList.includes(newObj)) {
+                let numOfChars = 0;
+                let shortString = "";
+                for (let char of newObj) {
+                    if (numOfChars == 13) {
+                        break;
+                    }
+                    numOfChars++;
+                    shortString += char;
+                }
+                a.textContent = shortString + "...";
+                a.setAttribute("data-bs-toggle", "tooltip");
+                a.setAttribute("data-bs-placement", "top");
+                a.setAttribute("data-bs-custom-class", "custom-tooltip");
+                a.setAttribute("data-bs-title", newObj);
+                newList.push(newObj);
+                li.append(a);
+                dropList.append(li);
+            }
+        }
+        //newList.push(drop.mainObject.split("-"));
+    }
+    console.log(newList);
+    //let li = document.createElement("li");
+    //let a = document.createElement("a");
+
+}
+
 async function downloadData() {                                 //Загрузка данных
     let nUrl = new URL(url + "routes");
     nUrl.searchParams.append("api_key", apiKey);
@@ -199,6 +238,7 @@ async function downloadData() {                                 //Загрузк
         let data = await response.json();
         //allRoutes = Object.assign({}, data);
         allRoutes = JSON.parse(JSON.stringify(data));
+        downloadMainObjectsList(data);
         createTableElementsOnDownload(data);
         //createTableRouteElements(data);
         //console.log(data);
@@ -211,16 +251,29 @@ async function searchBtnHandler() {                                    //Пои�
     let searchField = document.querySelector(".search-field").value;
     let nUrl = new URL(url + "routes");
     nUrl.searchParams.append("api_key", apiKey);
+    let mainObj = document.querySelector(".btn-main-object");
+    console.log("dd" + mainObj.textContent + "dd");
     let newRoutes = [];
     try {
-        if (searchField == "") downloadData();
+        if (searchField == "" && mainObj.textContent == "Основной объект") downloadData();
         else {
             let response = await fetch(nUrl);
             let data = await response.json();
+            let str = mainObj.textContent.slice(0, -4);
             //allRoutes = Object.assign({}, data);
             //allRoutes = JSON.parse(JSON.stringify(data));
             for (let route of data) {
-                if (route.name.includes(searchField)) {
+                if (mainObj.textContent == "Основной объект") {
+                    if (route.name.includes(searchField)) newRoutes.push(route);
+                }
+                /*else if (route.name.includes(searchField) && mainObj.textContent == "Основной объект") {
+                    newRoutes.push(route);
+                }*/
+                else if (searchField == "" && mainObj.textContent != "Основной объект") {
+                    if (route.mainObject.includes(str)) newRoutes.push(route);
+                    console.log(route.mainObject);
+                }
+                else if (route.name.includes(searchField) && (route.mainObject.includes(str)) && mainObj.textContent != "Основной объект") {
                     //console.log(route.description);
                     //console.log(route.description);
                     newRoutes.push(route);
@@ -242,6 +295,7 @@ async function searchBtnHandler() {                                    //Пои�
 }
 
 function pageBtnHandler(event) {                                     //Переход на другую страницу
+    if (!event.target.classList.contains("page-link")) return;
     let searchField = document.querySelector(".search-field").value;
     let oldBtn = document.querySelector(".active");
     oldBtn.classList.remove("active");
@@ -260,10 +314,18 @@ function searchFieldInput() {                                            //Пр�
     document.querySelector(".page-item").classList.add("active");
 }
 
+function btnMainOnjectClick() {
+    let oldBtn = document.querySelector(".active");
+    oldBtn.classList.remove("active");
+    document.querySelector(".pagination").firstChild.firstChild.classList.add("active");
+}
+
 window.onload = function () {
     downloadData();
     document.querySelector(".main-objects-list").onclick = clickMainObject;
     document.querySelector(".pagination").onclick = pageBtnHandler;
     document.querySelector(".search-btn").onclick = searchBtnHandler;
     document.querySelector(".search-field").oninput = searchFieldInput;
+    document.querySelector(".btn-main-object").onclick = btnMainOnjectClick;
+    //document.querySelector(".main-objects-list").onclick = mainObjectsListClick;
 };
