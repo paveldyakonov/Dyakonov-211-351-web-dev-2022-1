@@ -18,10 +18,14 @@ main {
     background-color: lightgoldenrodyellow;
 }
 
-.routes-list {
+.routes-list, .guides-list {
     border: gainsboro 2px solid;
 }
 
 .custom-tooltip {
     --bs-tooltip-bg: var(--bs-secondary);
-  }
+}
+
+  .dropdown {
+    height: 100px;
+}

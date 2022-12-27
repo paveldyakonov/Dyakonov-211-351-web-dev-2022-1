@@ -1,10 +1,7 @@
 const url = "http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/";
 const apiKey = "c67f2277-7aed-4821-a074-2fc510e2aae2";
 let allRoutes;
-// const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-// const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
-//console.log(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 function clickMainObject(event) {
     let mainObject = document.querySelector(".btn-main-object");
     mainObject.textContent = event.target.textContent;
@@ -30,6 +27,138 @@ function createTooltip(data) {                                               //c
     // console.log(data);
     // console.log(desc);
     return desc;
+}
+
+function onClickGuide(event) {
+    if (!event.target.classList.contains("btn")) return;
+    let oldBtn = document.querySelector(".btn-guide");
+    if (oldBtn) {
+        oldBtn.classList.remove("btn-guide");
+        oldBtn.classList.remove("btn-secondary");
+        oldBtn.classList.add("btn-light");
+    }
+    event.target.classList.add("btn-guide");
+    event.target.classList.remove("btn-light");
+    event.target.classList.add("btn-secondary");
+}
+
+function createLanguageList(guides) {
+    let newList = [];
+    let list = document.querySelector(".language-list");
+    let li = document.createElement("li");
+    let a = document.createElement("a");        
+    a.setAttribute("href", "#");
+    a.classList.add("dropdown-item")
+    a.textContent = "Язык экскурсии";        
+    li.append(a);
+    list.append(li);
+    for (let guide of guides) {
+        let li = document.createElement("li");
+        let a = document.createElement("a");
+        a.setAttribute("href", "#");
+        a.classList.add("dropdown-item")
+        a.textContent = guide.language;
+        li.append(a);
+        if (!newList.includes(guide.language)) {
+            newList.push(guide.language);
+            list.append(li);
+        }
+    }
+}
+
+function createGuidesTable(guides) {
+    let guidesTable = document.querySelector(".table-guides");
+    guidesTable.innerHTML = "";
+    document.querySelector(".language-list").innerHTML = "";
+    createLanguageList(guides);
+    for (let guide of guides) {
+        let row = document.createElement("tr");
+        row.classList.add("fs-6");
+        let th = document.createElement("th");               //create icon
+        th.setAttribute("scope", "row");
+        th.classList.add("fs-1");
+        th.classList.add("text-center");
+        let icon = document.createElement("span");
+        icon.classList.add("bi");
+        icon.classList.add("bi-person-rolodex");
+        th.append(icon);
+        row.append(th);
+
+        let nameGuide = document.createElement("td");              //create name
+        nameGuide.textContent = guide.name;
+        row.append(nameGuide);
+
+        let languageGuide = document.createElement("td");          //create language
+        languageGuide.textContent = guide.language;
+        row.append(languageGuide);
+
+        let workExp = document.createElement("td");
+        workExp.textContent = guide.workExperience;
+        row.append(workExp);
+
+        let price = document.createElement("td");
+        price.textContent = guide.pricePerHour;
+        row.append(price);
+
+        let btnTd = document.createElement("td");              //create button place
+        let btn = document.createElement("button");
+        btn.classList.add("btn");
+        btn.classList.add("btn-light");
+        btn.setAttribute("type", "button");
+        btn.setAttribute("aria-expanded", "false");
+        btn.textContent = "Да";
+        btnTd.append(btn);
+        btnTd.onclick = onClickGuide;
+        row.append(btnTd);
+
+        guidesTable.append(row);
+    }
+}
+
+function createWorkExperience(data) {
+    document.querySelector(".input-work-experience").value = "";
+    let min = 1000;
+    let max = 0;
+    let workInput = document.querySelector(".form-range");
+    workInput.removeAttribute("disabled");
+    for (let guide of data) {
+        if (guide.workExperience < min) {
+            min = guide.workExperience;
+        }
+        if (guide.workExperience > max) {
+            max = guide.workExperience;
+        }
+    }
+    workInput.value = min;
+    document.querySelector(".input-work-experience").value = min;
+    workInput.setAttribute("min", min);
+    workInput.setAttribute("max", max);
+}
+
+async function searchingGuides(idRoute) {
+    let nUrl = new URL(url + "routes/" + idRoute + "/guides");
+    nUrl.searchParams.append("api_key", apiKey);
+    try {
+        let response = await fetch(nUrl);
+        let data = await response.json();
+        createGuidesTable(data);
+        createWorkExperience(data);
+        console.log(data);
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+function searchGuidesForRoute(event) {
+    if (!event.target.classList.contains("btn-for-guides")) return;
+
+    let nameOfRoute = document.querySelector(".guides").querySelector("p");
+    nameOfRoute.textContent = "";
+    let str = "Доступные гиды по маршруту: ";
+    let onClickRoute = event.target.parentNode.parentNode;
+    nameOfRoute.textContent = str + onClickRoute.firstChild.getAttribute("data-bs-title");
+    document.querySelector(".btn-language").textContent = "Язык экскурсии";
+    searchingGuides(event.target.id);
 }
 
 function createRoute(data) {
@@ -82,11 +211,13 @@ function createRoute(data) {
     let btn = document.createElement("button");
     btn.classList.add("btn");
     btn.classList.add("btn-light");
+    btn.classList.add("btn-for-guides");
     btn.setAttribute("type", "button");
     btn.setAttribute("aria-expanded", "false");
     btn.setAttribute("id", data.id);
     btn.textContent = "Да";
     btnTd.append(btn);
+    btnTd.onclick = searchGuidesForRoute;
     row.append(btnTd);
 
     table.append(row);
@@ -302,7 +433,7 @@ function pageBtnHandler(event) {                                     //Пере�
     console.log(oldBtn.textContent);
     event.target.classList.add("active");
     console.log(allRoutes[0].description);
-    
+
     searchBtnHandler();
     //createTableRouteElements(allRoutes);
     //downloadData();
@@ -320,6 +451,15 @@ function btnMainOnjectClick() {
     document.querySelector(".pagination").firstChild.firstChild.classList.add("active");
 }
 
+function btnLanguageClick(event) {
+    if (!event.target.classList.contains("dropdown-item")) return;
+    document.querySelector(".btn-language").textContent = event.target.textContent;
+}
+
+function changeWorkExperience(event) {
+    console.log(event.target.value);
+}
+
 window.onload = function () {
     downloadData();
     document.querySelector(".main-objects-list").onclick = clickMainObject;
@@ -327,5 +467,12 @@ window.onload = function () {
     document.querySelector(".search-btn").onclick = searchBtnHandler;
     document.querySelector(".search-field").oninput = searchFieldInput;
     document.querySelector(".btn-main-object").onclick = btnMainOnjectClick;
+    document.querySelector(".language-list").onclick = btnLanguageClick;
+    let inputForWorkExperience = document.querySelector(".input-work-experience");
+    let formRange = document.querySelector(".form-range");
+    formRange.setAttribute("disabled", "");
+    formRange.oninput = function (event) {
+        inputForWorkExperience.value = event.target.value;
+    };
     //document.querySelector(".main-objects-list").onclick = mainObjectsListClick;
 };

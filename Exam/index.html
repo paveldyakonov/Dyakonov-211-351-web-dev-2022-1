@@ -66,7 +66,7 @@
                     <div class="col-2">
                         <button type="button" class="btn btn-light search-btn">Найти</button>
                     </div>
-                    <div class="dropdown col-12 col-md-5">
+                    <div class="dropdown col-12 col-md-5 overflow-auto">
                         <button class="btn btn-light btn-main-object dropdown-toggle float-md-end mt-3 mt-md-0"
                             type="button" data-bs-toggle="dropdown" aria-expanded="false">Основной объект</button>
                         <ul class="dropdown-menu main-objects-list">
@@ -75,8 +75,8 @@
                     </div>
                 </div>
 
-                <div class="py-3 row">
-                    <table class="table table-bordered  table-hover">
+                <div class="py-3 row table-responsive">
+                    <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
                                 <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -93,7 +93,7 @@
                                 <td>Mark</td>
                                 <td>Otto</td>
                                 <td class="">
-                                    <button class="btn btn-light" type="button" aria-expanded="false">
+                                    <button class="btn btn-light btn-for-guides" type="button" aria-expanded="false">
                                         Да
                                     </button>
                                 </td>
@@ -110,6 +110,61 @@
                         <li class="page-item"><a class="page-link" href="#">3</a></li> -->
                     </ul>
                 </nav>
+            </div>
+
+            <div class="container pt-5 guides-list">
+                <div class="guides">
+                    <p class="fs-2">Доступные гиды по маршруту: Маршрут не выбран</p>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <button class="btn btn-light btn-language dropdown-toggle"
+                            type="button" data-bs-toggle="dropdown" aria-expanded="false">Язык экскурсии</button>
+                        <ul class="dropdown-menu language-list">
+                            <li><a class="dropdown-item" href="#">Язык экскурсии</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label for="customRange3" class="form-label">Минимальный опыт работы</label>
+                        <input type="range" class="form-range" min="0" max="5" step="1" id="customRange3">
+                        <div class="input-group input-group-sm mb-3">
+                            <!-- <span class="input-group-text" id="inputGroup-sizing-sm">Small</span> -->
+                            <input type="text" class="form-control input-work-experience" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                        </div>
+                    </div>
+                    <div class="col-3 my-2">
+                        <button type="button" class="btn btn-light search-btn-guides">Найти</button>
+                    </div>
+                </div>
+
+                <div class="py-3 row table-responsive my-2">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                            <tr>
+                                <th scope="col" class="text-center fs-1">#</th>
+                                <th scope="col">Имя</th>
+                                <th scope="col">Языки</th>
+                                <th scope="col">Опыт работы</th>
+                                <th scope="col">Стоимость услуг в час</th>
+                                <th scope="col">Выбрать</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-guides">
+                            <tr class="fs-6">
+                                <th scope="row" class="fs-1 text-center"><span class="bi bi-person-rolodex"></span></th>
+                                <td>Mark</td>
+                                <td>Русский, Английский</td>
+                                <td>3 года</td>
+                                <td>Стоимость/час</td>
+                                <td class="">
+                                    <button class="btn btn-light" type="button" aria-expanded="false">
+                                        Да
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
     </header>
