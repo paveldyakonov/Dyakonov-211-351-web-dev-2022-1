@@ -124,12 +124,19 @@
                             <li><a class="dropdown-item" href="#">Язык экскурсии</a></li>
                         </ul>
                     </div>
-                    <div class="col-12 col-md-6">
-                        <label for="customRange3" class="form-label">Минимальный опыт работы</label>
-                        <input type="range" class="form-range" min="0" max="5" step="1" id="customRange3">
-                        <div class="input-group input-group-sm mb-3">
-                            <!-- <span class="input-group-text" id="inputGroup-sizing-sm">Small</span> -->
-                            <input type="text" class="form-control input-work-experience" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" disabled>
+                    <div class="col-6 col-md-4">
+                        <div class="row">
+                            <div class="col-12 text-center fs-4">
+                                Опыт работы
+                            </div>
+                            <div class="col-6">
+                                <label for="work-min-experience" class="form-label">От</label>
+                                <input class="form-control" id="work-min-experience" placeholder="">
+                            </div>
+                            <div class="col-6">
+                                <label for="work-max-experience" class="form-label">До</label>
+                                <input class="form-control" id="work-max-experience" placeholder="">
+                            </div>
                         </div>
                     </div>
                     <div class="col-3 my-2">
@@ -137,7 +144,7 @@
                     </div>
                 </div>
 
-                <div class="py-3 row table-responsive my-2">
+                <div class="py-3 row table-responsive mt-2">
                     <table class="table table-bordered table-hover">
                         <thead class="">
                             <tr>
@@ -164,8 +171,80 @@
                             </tr>
                         </tbody>
                     </table>
+                    <button type="button" class="btn btn-secondary text-warning checkout-route" data-bs-toggle="modal" data-bs-target="#addTask" data-action="show" disabled>Оформить заказ</button>
                 </div>
             </div>
+
+            <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Оформление заявки</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+        
+                        <div class="modal-body">
+                            <form id="create-task-form">
+                                <div class="mb-3 row">
+                                    <label for="name" class="col-form-label col-md-4">Имя гида</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control-plaintext" readonly id="name" name="name">
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="desc" class="col-form-label col-md-4">Маршрут</label>
+                                    <div class="col-md-8">
+                                        <input type="text" class="form-control-plaintext" readonly id="route" name="route">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-md-4 mb-1">
+                                        <label for="date" class="mb-1">Дата экскурсии</label>
+                                        <input type="date" id="date">
+                                    </div>
+                                    <div class="col-6 col-md-4">
+                                        <label for="time" class="mb-1">Время начала (каждые 30 минут)</label>
+                                        <input type="time" id="time" min="09:00" max="23:00" step="1800" value="09:00">
+                                    </div>
+                                    <div class="col-6 col-md-4 mb-2">
+                                        <label for="selectLength" class="mb-1">Длительность экскурсии</label>
+                                        <select id="selectLength" class="form-select" aria-label="Default select example">
+                                            <option value="1" selected>1 час</option>
+                                            <option value="2">2 часа</option>
+                                            <option value="3">3 часа</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 my-2">
+                                        <label for="customRange2" class="form-label">Количество человек</label>
+                                        <input type="range" class="form-range" min="1" max="20" step="1" id="customRange2" value="1">
+                                        <input type="text" class="form-control" id="number-people" name="number-people" value="1" disabled>
+                                    </div>
+                                    <label for="flexSwitchCheckDefault" class="mb-1">Дополнительные опции:</label>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="option1">
+                                        <label class="form-check-label" for="option1">Использовать скидку для пенсионеров</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-2">
+                                        <input class="form-check-input" type="checkbox" role="switch" id="option2">
+                                        <label class="form-check-label" for="option2">Тематические сувениры для посетителей</label>
+                                    </div>
+                                    <div class="mb-3 row mt-2">
+                                        <label for="name" class="col-form-label col-md-6">Итоговая стоимость:</label>
+                                        <div class="col-md-6 mt-md-2">
+                                            <input type="text" class="form-control-plaintext" readonly id="price" name="price">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary back-btn" data-bs-dismiss="modal">Отмена</button>
+                            <button type="submit" form="create-task-form" class="btn btn-primary create-btn">Оформить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </main>
     </header>
 

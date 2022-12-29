@@ -2,6 +2,16 @@ const url = "http://exam-2023-1-api.std-900.ist.mospolytech.ru/api/";
 const apiKey = "c67f2277-7aed-4821-a074-2fc510e2aae2";
 let allRoutes;
 
+const holidays = [
+    "01-01",
+    "02-23",
+    "03-08",
+    "05-09",
+    "09-01",
+    "06-12",
+    "05-01",
+]
+
 function clickMainObject(event) {
     let mainObject = document.querySelector(".btn-main-object");
     mainObject.textContent = event.target.textContent;
@@ -40,6 +50,7 @@ function onClickGuide(event) {
     event.target.classList.add("btn-guide");
     event.target.classList.remove("btn-light");
     event.target.classList.add("btn-secondary");
+    document.querySelector(".checkout-route").removeAttribute("disabled");
 }
 
 function createLanguageList(guides) {
@@ -66,7 +77,7 @@ function createLanguageList(guides) {
     }
 }
 
-function createGuidesTable(guides) {
+function createGuidesTable(guides, lang, minInput, maxInput) {
     let guidesTable = document.querySelector(".table-guides");
     guidesTable.innerHTML = "";
     document.querySelector(".language-list").innerHTML = "";
@@ -85,6 +96,7 @@ function createGuidesTable(guides) {
         row.append(th);
 
         let nameGuide = document.createElement("td");              //create name
+        nameGuide.classList.add("nameOfGuide");
         nameGuide.textContent = guide.name;
         row.append(nameGuide);
 
@@ -96,7 +108,8 @@ function createGuidesTable(guides) {
         workExp.textContent = guide.workExperience;
         row.append(workExp);
 
-        let price = document.createElement("td");
+        let price = document.createElement("td");                  //create price per hour
+        price.classList.add("priceOfGuide");
         price.textContent = guide.pricePerHour;
         row.append(price);
 
@@ -110,17 +123,24 @@ function createGuidesTable(guides) {
         btnTd.append(btn);
         btnTd.onclick = onClickGuide;
         row.append(btnTd);
-
-        guidesTable.append(row);
+        if ((lang == guide.language) && (minInput <= guide.workExperience) && (guide.workExperience <= maxInput)) guidesTable.append(row);
+        else if ((lang == "Язык экскурсии") && (minInput <= guide.workExperience) && (guide.workExperience <= maxInput)) {
+            guidesTable.append(row);
+            console.log(guide.workExperience >= minInput);
+        }
+    }
+    if (document.querySelector(".table-guides").children.length == 0) {
+        document.querySelector(".checkout-route").setAttribute("disabled", "");
     }
 }
 
 function createWorkExperience(data) {
-    document.querySelector(".input-work-experience").value = "";
+    let minInput = document.querySelector("#work-min-experience");
+    let maxInput = document.querySelector("#work-max-experience");
+    maxInput.value = "";
+    minInput.value = "";
     let min = 1000;
     let max = 0;
-    let workInput = document.querySelector(".form-range");
-    workInput.removeAttribute("disabled");
     for (let guide of data) {
         if (guide.workExperience < min) {
             min = guide.workExperience;
@@ -129,19 +149,18 @@ function createWorkExperience(data) {
             max = guide.workExperience;
         }
     }
-    workInput.value = min;
-    document.querySelector(".input-work-experience").value = min;
-    workInput.setAttribute("min", min);
-    workInput.setAttribute("max", max);
+    maxInput.value = max;
+    minInput.value = min;
 }
 
 async function searchingGuides(idRoute) {
+    //document.querySelector(".checkout-route").removeAttribute("disabled");
     let nUrl = new URL(url + "routes/" + idRoute + "/guides");
     nUrl.searchParams.append("api_key", apiKey);
     try {
         let response = await fetch(nUrl);
         let data = await response.json();
-        createGuidesTable(data);
+        createGuidesTable(data, "Язык экскурсии", 0, 50);
         createWorkExperience(data);
         console.log(data);
     } catch (error) {
@@ -151,7 +170,7 @@ async function searchingGuides(idRoute) {
 
 function searchGuidesForRoute(event) {
     if (!event.target.classList.contains("btn-for-guides")) return;
-
+    document.querySelector(".search-btn-guides").setAttribute("id", event.target.id);
     let nameOfRoute = document.querySelector(".guides").querySelector("p");
     nameOfRoute.textContent = "";
     let str = "Доступные гиды по маршруту: ";
@@ -460,6 +479,125 @@ function changeWorkExperience(event) {
     console.log(event.target.value);
 }
 
+async function searchGuidesWithFilters(event) {
+    let language = document.querySelector(".btn-language");
+    let minInput = document.querySelector("#work-min-experience");
+    let maxInput = document.querySelector("#work-max-experience");
+    let nUrl = new URL(url + "routes/" + event.target.id + "/guides");
+    nUrl.searchParams.append("api_key", apiKey);
+
+    try {
+        let response = await fetch(nUrl);
+        let data = await response.json();
+        createGuidesTable(data, language.textContent, minInput.value, maxInput.value);
+        console.log(language.textContent + "   " + maxInput.value + "   " + minInput.value);
+        console.log(data);
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
+function numberOfVisitors() {
+    let form = document.querySelector("#create-task-form");
+    let number = form.elements["customRange2"].value;
+    let plus = 0;
+    if (number <= 5) plus = 0;
+    else if ((number > 5) && (number <= 10)) plus = 1000;
+    else if ((number > 10) && (number <= 20)) plus = 1500;
+    return plus;
+}
+
+function guideServiceCost() {
+    let form = document.querySelector("#create-task-form");
+    let checkedGuide = document.querySelector(".btn-guide");
+    let guideInfo = checkedGuide.parentElement.parentElement.children;
+    let route = document.querySelector(".guides").textContent.split(":");
+    let name = "";
+    let price = 0;
+
+    for (let guide of guideInfo) {
+        if (guide.classList.contains("nameOfGuide")) name = guide.textContent;
+        if (guide.classList.contains("priceOfGuide")) price = parseInt(guide.textContent);
+    }
+    return price;
+}
+
+function isThisDayOff() {
+    let form = document.querySelector("#create-task-form");
+    let isHoliday = new Date(form.elements["date"].value);
+    let YearMonthDay = isHoliday.toJSON().slice(0, 10).split("-");
+    let MonthDay = YearMonthDay[1] + "-" + YearMonthDay[2];
+    let plus = 1;
+    if ((isHoliday.getDay() == 0) || (isHoliday.getDay() == 6) || (holidays.includes(MonthDay))) {
+        plus = 1.5;
+    }
+    return plus;
+}
+
+function isItMorningOrEvening() {
+    let form = document.querySelector("#create-task-form");
+    let time = parseInt(form.elements["time"].value.split(":")[0]);
+    let plus = 0;
+    if ((time >= 9) && (time < 12)) plus = 400;
+    else if ((time >= 20) && (time <= 23)) plus = 1000;
+    console.log(time);
+    console.log(plus);
+    return plus;
+}
+
+function hoursNumber() {
+    let form = document.querySelector("#create-task-form");
+    let hours = form.elements["selectLength"].value;
+    return hours;
+}
+
+function changeNumberOfPeople(event) {
+    document.querySelector("#number-people").value = event.target.value;
+    let form = document.querySelector("#create-task-form");
+    let checkedGuide = document.querySelector(".btn-guide");
+    let guideInfo = checkedGuide.parentElement.parentElement.children;
+    let route = document.querySelector(".guides").textContent.split(":");
+    let name = "";
+    let price = 0;
+    let hours = form.elements["selectLength"].value;
+    for (let guide of guideInfo) {
+        if (guide.classList.contains("nameOfGuide")) name = guide.textContent;
+        if (guide.classList.contains("priceOfGuide")) price = parseInt(guide.textContent);
+    }
+    price = guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors();
+    form.elements["price"].value = parseInt(price);
+}
+
+function checkoutRoute(event) {
+    let form = document.querySelector("#create-task-form");
+    let checkedGuide = document.querySelector(".btn-guide");
+    let guideInfo = checkedGuide.parentElement.parentElement.children;
+    let route = document.querySelector(".guides").textContent.split(":");
+    let date = new Date();
+    date.setDate(date.getDate() + 1);
+    form.querySelector("#date").value = date.toJSON().slice(0, 10);
+    form.querySelector("#date").setAttribute("min", date.toJSON().slice(0, 10));
+    console.log(route[1]);
+    let name = "";
+    let price = 0;
+    console.log(guideInfo);
+    for (let guide of guideInfo) {
+        if (guide.classList.contains("nameOfGuide")) name = guide.textContent;
+        if (guide.classList.contains("priceOfGuide")) price = parseInt(guide.textContent);
+    }
+    form.elements["name"].value = name;
+    form.elements["route"].value = route[1];
+    price = guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors();
+    form.elements["price"].value = parseInt(price);
+}
+
+function changeTotalPrice(event) {
+    let form = document.querySelector("#create-task-form");
+    let price = guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors();
+    form.elements["price"].value = parseInt(price);
+}
+
 window.onload = function () {
     downloadData();
     document.querySelector(".main-objects-list").onclick = clickMainObject;
@@ -468,11 +606,11 @@ window.onload = function () {
     document.querySelector(".search-field").oninput = searchFieldInput;
     document.querySelector(".btn-main-object").onclick = btnMainOnjectClick;
     document.querySelector(".language-list").onclick = btnLanguageClick;
-    let inputForWorkExperience = document.querySelector(".input-work-experience");
-    let formRange = document.querySelector(".form-range");
-    formRange.setAttribute("disabled", "");
-    formRange.oninput = function (event) {
-        inputForWorkExperience.value = event.target.value;
-    };
+    document.querySelector(".search-btn-guides").onclick = searchGuidesWithFilters;
+    document.querySelector("#customRange2").oninput = changeNumberOfPeople;
+    document.querySelector(".checkout-route").onclick = checkoutRoute;
+    document.querySelector("#selectLength").oninput = changeTotalPrice;
+    document.querySelector("#time").oninput = changeTotalPrice;
+    document.querySelector("#date").oninput = changeTotalPrice;
     //document.querySelector(".main-objects-list").onclick = mainObjectsListClick;
 };

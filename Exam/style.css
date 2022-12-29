@@ -29,3 +29,7 @@ main {
   .dropdown {
     height: 100px;
 }
+
+.modal-content {
+    background-color:bisque;
+}
