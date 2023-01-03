@@ -33,3 +33,9 @@ main {
 .modal-content {
     background-color:bisque;
 }
+
+.alerts {
+    position: sticky;
+    top: 0;
+    text-align: center;
+}

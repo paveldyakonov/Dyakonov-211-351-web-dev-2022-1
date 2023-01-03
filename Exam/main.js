@@ -10,7 +10,25 @@ const holidays = [
     "09-01",
     "06-12",
     "05-01",
-]
+];
+
+function showAlert(error, color) {
+    let alerts = document.querySelector(".alerts");
+    let alert = document.createElement("div");
+    alert.classList.add("alert", "alert-dismissible", color);
+    alert.setAttribute("role", "alert");
+    alert.append(error);
+    let btn = document.createElement("button");
+    btn.setAttribute("type", "button");
+    btn.classList.add("btn-close");
+    alert.classList.add("position-sticky");
+    alert.classList.add("end-50");
+    alert.classList.add("my-0");
+    btn.setAttribute("data-bs-dismiss", "alert");
+    btn.setAttribute("aria-label", "Close");
+    alert.append(btn);
+    alerts.append(alert);
+}
 
 function clickMainObject(event) {
     let mainObject = document.querySelector(".btn-main-object");
@@ -57,10 +75,10 @@ function createLanguageList(guides) {
     let newList = [];
     let list = document.querySelector(".language-list");
     let li = document.createElement("li");
-    let a = document.createElement("a");        
+    let a = document.createElement("a");
     a.setAttribute("href", "#");
     a.classList.add("dropdown-item")
-    a.textContent = "Язык экскурсии";        
+    a.textContent = "Язык экскурсии";
     li.append(a);
     list.append(li);
     for (let guide of guides) {
@@ -120,6 +138,7 @@ function createGuidesTable(guides, lang, minInput, maxInput) {
         btn.setAttribute("type", "button");
         btn.setAttribute("aria-expanded", "false");
         btn.textContent = "Да";
+        btn.setAttribute("data-guide-id", guide.id);
         btnTd.append(btn);
         btnTd.onclick = onClickGuide;
         row.append(btnTd);
@@ -170,9 +189,19 @@ async function searchingGuides(idRoute) {
 
 function searchGuidesForRoute(event) {
     if (!event.target.classList.contains("btn-for-guides")) return;
-    document.querySelector(".search-btn-guides").setAttribute("id", event.target.id);
+    document.querySelector(".search-btn-guides").setAttribute("data-route-id", event.target.id);
+    document.querySelector(".checkout-route").setAttribute("disabled", "");
     let nameOfRoute = document.querySelector(".guides").querySelector("p");
     nameOfRoute.textContent = "";
+    nameOfRoute.scrollIntoView();
+    let oldBtn = event.target.parentNode.parentNode.parentNode.querySelector(".btn-secondary");
+    if (oldBtn) {
+        oldBtn.classList.remove("btn-secondary");
+        oldBtn.classList.add("btn-light");
+    }
+    
+    event.target.classList.remove("btn-light");
+    event.target.classList.add("btn-secondary");
     let str = "Доступные гиды по маршруту: ";
     let onClickRoute = event.target.parentNode.parentNode;
     nameOfRoute.textContent = str + onClickRoute.firstChild.getAttribute("data-bs-title");
@@ -234,6 +263,8 @@ function createRoute(data) {
     btn.setAttribute("type", "button");
     btn.setAttribute("aria-expanded", "false");
     btn.setAttribute("id", data.id);
+    //btn.setAttribute("href", "#guides-list");
+    //btn.href = "#guides-list";
     btn.textContent = "Да";
     btnTd.append(btn);
     btnTd.onclick = searchGuidesForRoute;
@@ -390,10 +421,13 @@ async function downloadData() {                                 //Загрузк
         allRoutes = JSON.parse(JSON.stringify(data));
         downloadMainObjectsList(data);
         createTableElementsOnDownload(data);
+        showAlert("Данные успешно загружены", "alert-success");
+
         //createTableRouteElements(data);
         //console.log(data);
     } catch (error) {
-        console.log(error.message);
+        showAlert(error.message, "alert-danger");
+        //console.log(error.message);
     }
 }
 
@@ -402,6 +436,7 @@ async function searchBtnHandler() {                                    //Пои�
     let nUrl = new URL(url + "routes");
     nUrl.searchParams.append("api_key", apiKey);
     let mainObj = document.querySelector(".btn-main-object");
+    
     console.log("dd" + mainObj.textContent + "dd");
     let newRoutes = [];
     try {
@@ -483,7 +518,7 @@ async function searchGuidesWithFilters(event) {
     let language = document.querySelector(".btn-language");
     let minInput = document.querySelector("#work-min-experience");
     let maxInput = document.querySelector("#work-max-experience");
-    let nUrl = new URL(url + "routes/" + event.target.id + "/guides");
+    let nUrl = new URL(url + "routes/" + event.target.getAttribute("data-route-id") + "/guides");
     nUrl.searchParams.append("api_key", apiKey);
 
     try {
@@ -493,7 +528,8 @@ async function searchGuidesWithFilters(event) {
         console.log(language.textContent + "   " + maxInput.value + "   " + minInput.value);
         console.log(data);
     } catch (error) {
-        console.log(error.message);
+        showAlert("Не найдено", "alert-warning");
+        //console.log(error.message);
     }
 
 }
@@ -552,6 +588,26 @@ function hoursNumber() {
     return hours;
 }
 
+function checkOptionFirst() {
+    let option = document.querySelector("#option1");
+    let price = 1;
+    if (option.checked) {
+        price = 0.75;
+    }
+    return price;
+}
+
+function checkOptionSecond() {
+    let option = document.querySelector("#option2");
+    let price = 0;
+    let form = document.querySelector("#create-task-form");
+    let number = form.elements["customRange2"].value;
+    if (option.checked) {
+        price = 500 * number;
+    }
+    return price;
+}
+
 function changeNumberOfPeople(event) {
     document.querySelector("#number-people").value = event.target.value;
     let form = document.querySelector("#create-task-form");
@@ -565,7 +621,7 @@ function changeNumberOfPeople(event) {
         if (guide.classList.contains("nameOfGuide")) name = guide.textContent;
         if (guide.classList.contains("priceOfGuide")) price = parseInt(guide.textContent);
     }
-    price = guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors();
+    price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
     form.elements["price"].value = parseInt(price);
 }
 
@@ -588,14 +644,55 @@ function checkoutRoute(event) {
     }
     form.elements["name"].value = name;
     form.elements["route"].value = route[1];
-    price = guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors();
+    price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
     form.elements["price"].value = parseInt(price);
 }
 
 function changeTotalPrice(event) {
     let form = document.querySelector("#create-task-form");
-    let price = guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors();
+    price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
     form.elements["price"].value = parseInt(price);
+}
+
+async function sendRequest(event) {                               //оформление заявки
+    if (!event.target.classList.contains("create-btn")) return;
+    let formForSend = new FormData();
+    let guideId = document.querySelector(".btn-guide").getAttribute("data-guide-id");
+    let routeId = document.querySelector(".search-btn-guides").getAttribute("data-route-id");
+    let form = document.querySelector("#create-task-form");
+    formForSend.append("guide_id", guideId);
+    formForSend.append("route_id", routeId);
+    formForSend.append("date", form.elements["date"].value);
+    formForSend.append("time", form.elements["time"].value);
+    formForSend.append("duration", form.elements["selectLength"].value);
+    formForSend.append("persons", form.elements["customRange2"].value);
+    formForSend.append("price", form.elements["price"].value);
+    formForSend.append("optionFirst", form.elements["option1"].checked);
+    formForSend.append("optionSecond", form.elements["option2"].checked);
+
+    let nUrl = new URL(url + "orders");
+    nUrl.searchParams.append("api_key", apiKey);
+    if (form.elements["time"].validity.valid) {
+        try {
+            event.target.setAttribute("type", "button");
+            let modal = document.querySelector("#addTask");
+            var modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+            let response = await fetch(nUrl, {
+                method: "POST",
+                body: formForSend,
+            });
+            let data = await response.json();
+            if (data.error) showAlert(data.error, "alert-danger"); //console.log(data.error);
+            else showAlert("Заявка успешно оформлена", "alert-success");
+            //console.log(data);
+        } catch (error) {
+            showAlert(error.message, "alert-danger");
+            //console.log(error.message);
+        }
+    } else {
+        event.target.setAttribute("type", "submit");
+    }
 }
 
 window.onload = function () {
@@ -612,5 +709,8 @@ window.onload = function () {
     document.querySelector("#selectLength").oninput = changeTotalPrice;
     document.querySelector("#time").oninput = changeTotalPrice;
     document.querySelector("#date").oninput = changeTotalPrice;
+    document.querySelector("#option1").oninput = changeTotalPrice;
+    document.querySelector("#option2").oninput = changeTotalPrice;
+    document.querySelector(".create-btn").onclick = sendRequest;
     //document.querySelector(".main-objects-list").onclick = mainObjectsListClick;
 };

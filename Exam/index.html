@@ -37,216 +37,229 @@
                 </div>
             </div>
         </nav>
+    </header>
 
-        <main>
-            <div class="container py-5">
-                <div class="row">
-                    <div class="col-12 col-md-6 mb-3 mb-md-0">
-                        <div class="">
-                            <img class="img-fluid w-100" src="images/IMG_552_1647867573.jpg" alt="logo">
-                        </div>
+    <main>
+        <div class="alerts w-75 mx-auto">
+            <div class="d-none alert alert-warning alert-dismissible fade hidden" role="alert">
+                <!-- <strong>Holy guacamole!</strong> You should check in on some of those fields below. -->
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                    <div class="">
+                        <img class="img-fluid w-100" src="images/IMG_552_1647867573.jpg" alt="logo">
                     </div>
-                    <div class="col-12 col-md-6 d-flex justify-content-center align-items-center fs-2 ">
-                        Лучшие экскурсии по Москве только у нас, на рынке уже 30 лет. Огромные скидки, лучшие гиды и
-                        прочее
-                        вы найдёте в PashaTravel!
-                    </div>
+                </div>
+                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center fs-2 ">
+                    Лучшие экскурсии по Москве только у нас, на рынке уже 30 лет. Огромные скидки, лучшие гиды и
+                    прочее
+                    вы найдёте в PashaTravel!
                 </div>
             </div>
-            <div class="container pt-5 routes-list">
-                <div class="routes">
-                    <p class="fs-2">Список пешеходных маршрутов</p>
+        </div>
+        <div class="container pt-5 routes-list">
+            <div class="routes">
+                <p class="fs-2">Список пешеходных маршрутов</p>
+            </div>
+            <div class="row gx-0">
+                <div class="col-10 col-md-5">
+                    <form role="search">
+                        <input class="form-control search-field" type="search" placeholder="Поиск" aria-label="Search">
+                    </form>
                 </div>
-                <div class="row gx-0">
-                    <div class="col-10 col-md-5">
-                        <form role="search">
-                            <input class="form-control search-field" type="search" placeholder="Поиск" aria-label="Search">
+                <div class="col-2">
+                    <button type="button" class="btn btn-light search-btn">Найти</button>
+                </div>
+                <div class="dropdown col-12 col-md-5 overflow-auto">
+                    <button class="btn btn-light btn-main-object dropdown-toggle float-md-end mt-3 mt-md-0"
+                        type="button" data-bs-toggle="dropdown" aria-expanded="false">Основной объект</button>
+                    <ul class="dropdown-menu main-objects-list">
+                        <li><a class="dropdown-item" href="#">Основной объект</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="py-3 row table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead class="">
+                        <tr>
+                            <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top"
+                                data-bs-custom-class="custom-tooltip"
+                                data-bs-title="This top tooltip is themed via CSS variables.">Название</th>
+                            <th scope="col">Описание</th>
+                            <th scope="col">Основные объекты</th>
+                            <th scope="col">Выбрать</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-routes">
+                        <!-- <tr class="fs-6">
+                            <th scope="row" class="">Нескучный</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                            <td class="">
+                                <button class="btn btn-light btn-for-guides" type="button" aria-expanded="false">
+                                    Да
+                                </button>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="container pb-3">
+            <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center d-flex flex-wrap">
+                    <li class="page-item"><a class="page-link active bg-secondary text-warning" href="#">1</a></li>
+                    <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                </ul>
+            </nav>
+        </div>
+
+        <div class="container pt-5 guides-list" id="guides-list">
+            <div class="guides">
+                <p class="fs-2">Доступные гиды по маршруту: Маршрут не выбран</p>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <button class="btn btn-light btn-language dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">Язык экскурсии</button>
+                    <ul class="dropdown-menu language-list">
+                        <li><a class="dropdown-item" href="#">Язык экскурсии</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div class="row">
+                        <div class="col-12 text-center fs-4">
+                            Опыт работы
+                        </div>
+                        <div class="col-6">
+                            <label for="work-min-experience" class="form-label">От</label>
+                            <input class="form-control" id="work-min-experience" placeholder="">
+                        </div>
+                        <div class="col-6">
+                            <label for="work-max-experience" class="form-label">До</label>
+                            <input class="form-control" id="work-max-experience" placeholder="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3 my-2">
+                    <button type="button" class="btn btn-light search-btn-guides">Найти</button>
+                </div>
+            </div>
+
+            <div class="py-3 row table-responsive mt-2">
+                <table class="table table-bordered table-hover">
+                    <thead class="">
+                        <tr>
+                            <th scope="col" class="text-center fs-1">#</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Языки</th>
+                            <th scope="col">Опыт работы</th>
+                            <th scope="col">Стоимость услуг в час</th>
+                            <th scope="col">Выбрать</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-guides">
+                        <!-- <tr class="fs-6">
+                            <th scope="row" class="fs-1 text-center"><span class="bi bi-person-rolodex"></span></th>
+                            <td>Mark</td>
+                            <td>Русский, Английский</td>
+                            <td>3 года</td>
+                            <td>Стоимость/час</td>
+                            <td class="">
+                                <button class="btn btn-light" type="button" aria-expanded="false">
+                                    Да
+                                </button>
+                            </td>
+                        </tr> -->
+                    </tbody>
+                </table>
+                <button type="button" class="btn btn-secondary text-warning checkout-route" data-bs-toggle="modal"
+                    data-bs-target="#addTask" data-action="show" disabled>Оформить заказ</button>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Оформление заявки</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="create-task-form">
+                            <div class="mb-3 row">
+                                <label for="name" class="col-form-label col-md-4">Имя гида</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control-plaintext" readonly id="name" name="name">
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label for="desc" class="col-form-label col-md-4">Маршрут</label>
+                                <div class="col-md-8">
+                                    <input type="text" class="form-control-plaintext" readonly id="route" name="route">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6 col-md-4 mb-1">
+                                    <label for="date" class="mb-1">Дата экскурсии</label>
+                                    <input type="date" id="date">
+                                </div>
+                                <div class="col-6 col-md-4">
+                                    <label for="time" class="mb-1">Время начала (каждые 30 минут)</label>
+                                    <input type="time" id="time" min="09:00" max="23:00" step="1800" value="09:00">
+                                </div>
+                                <div class="col-6 col-md-4 mb-2">
+                                    <label for="selectLength" class="mb-1">Длительность экскурсии</label>
+                                    <select id="selectLength" class="form-select" aria-label="Default select example">
+                                        <option value="1" selected>1 час</option>
+                                        <option value="2">2 часа</option>
+                                        <option value="3">3 часа</option>
+                                    </select>
+                                </div>
+                                <div class="col-6 my-2">
+                                    <label for="customRange2" class="form-label">Количество человек</label>
+                                    <input type="range" class="form-range" min="1" max="20" step="1" id="customRange2"
+                                        value="1">
+                                    <input type="text" class="form-control" id="number-people" name="number-people"
+                                        value="1" disabled>
+                                </div>
+                                <label for="flexSwitchCheckDefault" class="mb-1">Дополнительные опции:</label>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="option1">
+                                    <label class="form-check-label" for="option1">Использовать скидку для
+                                        пенсионеров</label>
+                                </div>
+                                <div class="form-check form-switch mb-2">
+                                    <input class="form-check-input" type="checkbox" role="switch" id="option2">
+                                    <label class="form-check-label" for="option2">Тематические сувениры для
+                                        посетителей</label>
+                                </div>
+                                <div class="mb-3 row mt-2">
+                                    <label for="name" class="col-form-label col-md-6">Итоговая стоимость:</label>
+                                    <div class="col-md-6 mt-md-2">
+                                        <input type="text" class="form-control-plaintext" readonly id="price"
+                                            name="price">
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
-                    <div class="col-2">
-                        <button type="button" class="btn btn-light search-btn">Найти</button>
-                    </div>
-                    <div class="dropdown col-12 col-md-5 overflow-auto">
-                        <button class="btn btn-light btn-main-object dropdown-toggle float-md-end mt-3 mt-md-0"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">Основной объект</button>
-                        <ul class="dropdown-menu main-objects-list">
-                            <li><a class="dropdown-item" href="#">Основной объект</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="py-3 row table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead class="">
-                            <tr>
-                                <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top"
-                                    data-bs-custom-class="custom-tooltip"
-                                    data-bs-title="This top tooltip is themed via CSS variables.">Название</th>
-                                <th scope="col">Описание</th>
-                                <th scope="col">Основные объекты</th>
-                                <th scope="col">Выбрать</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-routes">
-                            <tr class="fs-6">
-                                <th scope="row" class="">Нескучный</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td class="">
-                                    <button class="btn btn-light btn-for-guides" type="button" aria-expanded="false">
-                                        Да
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="container pb-3">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center d-flex flex-wrap">
-                        <li class="page-item"><a class="page-link active bg-secondary text-warning" href="#">1</a></li>
-                        <!-- <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li> -->
-                    </ul>
-                </nav>
-            </div>
-
-            <div class="container pt-5 guides-list">
-                <div class="guides">
-                    <p class="fs-2">Доступные гиды по маршруту: Маршрут не выбран</p>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <button class="btn btn-light btn-language dropdown-toggle"
-                            type="button" data-bs-toggle="dropdown" aria-expanded="false">Язык экскурсии</button>
-                        <ul class="dropdown-menu language-list">
-                            <li><a class="dropdown-item" href="#">Язык экскурсии</a></li>
-                        </ul>
-                    </div>
-                    <div class="col-6 col-md-4">
-                        <div class="row">
-                            <div class="col-12 text-center fs-4">
-                                Опыт работы
-                            </div>
-                            <div class="col-6">
-                                <label for="work-min-experience" class="form-label">От</label>
-                                <input class="form-control" id="work-min-experience" placeholder="">
-                            </div>
-                            <div class="col-6">
-                                <label for="work-max-experience" class="form-label">До</label>
-                                <input class="form-control" id="work-max-experience" placeholder="">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-3 my-2">
-                        <button type="button" class="btn btn-light search-btn-guides">Найти</button>
-                    </div>
-                </div>
-
-                <div class="py-3 row table-responsive mt-2">
-                    <table class="table table-bordered table-hover">
-                        <thead class="">
-                            <tr>
-                                <th scope="col" class="text-center fs-1">#</th>
-                                <th scope="col">Имя</th>
-                                <th scope="col">Языки</th>
-                                <th scope="col">Опыт работы</th>
-                                <th scope="col">Стоимость услуг в час</th>
-                                <th scope="col">Выбрать</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-guides">
-                            <tr class="fs-6">
-                                <th scope="row" class="fs-1 text-center"><span class="bi bi-person-rolodex"></span></th>
-                                <td>Mark</td>
-                                <td>Русский, Английский</td>
-                                <td>3 года</td>
-                                <td>Стоимость/час</td>
-                                <td class="">
-                                    <button class="btn btn-light" type="button" aria-expanded="false">
-                                        Да
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <button type="button" class="btn btn-secondary text-warning checkout-route" data-bs-toggle="modal" data-bs-target="#addTask" data-action="show" disabled>Оформить заказ</button>
-                </div>
-            </div>
-
-            <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Оформление заявки</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-        
-                        <div class="modal-body">
-                            <form id="create-task-form">
-                                <div class="mb-3 row">
-                                    <label for="name" class="col-form-label col-md-4">Имя гида</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control-plaintext" readonly id="name" name="name">
-                                    </div>
-                                </div>
-                                <div class="mb-3 row">
-                                    <label for="desc" class="col-form-label col-md-4">Маршрут</label>
-                                    <div class="col-md-8">
-                                        <input type="text" class="form-control-plaintext" readonly id="route" name="route">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 col-md-4 mb-1">
-                                        <label for="date" class="mb-1">Дата экскурсии</label>
-                                        <input type="date" id="date">
-                                    </div>
-                                    <div class="col-6 col-md-4">
-                                        <label for="time" class="mb-1">Время начала (каждые 30 минут)</label>
-                                        <input type="time" id="time" min="09:00" max="23:00" step="1800" value="09:00">
-                                    </div>
-                                    <div class="col-6 col-md-4 mb-2">
-                                        <label for="selectLength" class="mb-1">Длительность экскурсии</label>
-                                        <select id="selectLength" class="form-select" aria-label="Default select example">
-                                            <option value="1" selected>1 час</option>
-                                            <option value="2">2 часа</option>
-                                            <option value="3">3 часа</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-6 my-2">
-                                        <label for="customRange2" class="form-label">Количество человек</label>
-                                        <input type="range" class="form-range" min="1" max="20" step="1" id="customRange2" value="1">
-                                        <input type="text" class="form-control" id="number-people" name="number-people" value="1" disabled>
-                                    </div>
-                                    <label for="flexSwitchCheckDefault" class="mb-1">Дополнительные опции:</label>
-                                    <div class="form-check form-switch">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="option1">
-                                        <label class="form-check-label" for="option1">Использовать скидку для пенсионеров</label>
-                                    </div>
-                                    <div class="form-check form-switch mb-2">
-                                        <input class="form-check-input" type="checkbox" role="switch" id="option2">
-                                        <label class="form-check-label" for="option2">Тематические сувениры для посетителей</label>
-                                    </div>
-                                    <div class="mb-3 row mt-2">
-                                        <label for="name" class="col-form-label col-md-6">Итоговая стоимость:</label>
-                                        <div class="col-md-6 mt-md-2">
-                                            <input type="text" class="form-control-plaintext" readonly id="price" name="price">
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary back-btn" data-bs-dismiss="modal">Отмена</button>
-                            <button type="submit" form="create-task-form" class="btn btn-primary create-btn">Оформить</button>
-                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary back-btn" data-bs-dismiss="modal">Отмена</button>
+                        <button type="button" form="create-task-form"
+                            class="btn btn-primary create-btn">Оформить</button>
                     </div>
                 </div>
             </div>
-
-        </main>
-    </header>
+        </div>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
