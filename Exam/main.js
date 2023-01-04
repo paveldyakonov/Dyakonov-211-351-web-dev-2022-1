@@ -28,6 +28,7 @@ function showAlert(error, color) {
     btn.setAttribute("aria-label", "Close");
     alert.append(btn);
     alerts.append(alert);
+    setTimeout(() => alert.remove(), 4000);
 }
 
 function clickMainObject(event) {

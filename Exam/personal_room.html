@@ -8,7 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_person.css">
     <title>Travel</title>
 </head>
 
@@ -31,7 +31,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-5 ms-lg-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="personal_room.html">Личный кабинет</a>
+                            <a class="nav-link" href="index.html">На главную</a>
                         </li>
                     </ul>
                 </div>
@@ -47,82 +47,36 @@
             </div>
         </div>
 
-        <div class="container py-5">
-            <div class="row">
-                <div class="col-12 col-md-6 mb-3 mb-md-0">
-                    <div class="">
-                        <img class="img-fluid w-100" src="images/IMG_552_1647867573.jpg" alt="logo">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 d-flex justify-content-center align-items-center fs-2 ">
-                    Лучшие экскурсии по Москве только у нас, на рынке уже 30 лет. Огромные скидки, лучшие гиды и
-                    прочее
-                    вы найдёте в PashaTravel!
-                </div>
-            </div>
-        </div>
-        <div class="container py-5 dignity mb-5">
-            <div class="row">
-                <div class="col-12 fs-1 text-center">
-                    Наши преимущества
-                </div>
-                <div class="col-12 col-md-4 text-center fs-3 my-2">
-                    <i class="bi bi-houses-fill"></i>
-                    <span class="fs-5">271 Достопримечательность</span>
-                </div>
-                <div class="col-6 col-md-4 text-center fs-3 my-3">
-                    <i class="bi bi-people-fill"></i>
-                    <span class="fs-5">Лучшие гиды</span>
-                </div>
-                <div class="col-6 col-md-4 text-center fs-3 my-3">
-                    <i class="bi bi-pin-map-fill"></i>
-                    <span class="fs-5">Лучшие маршруты</span>
-                </div>
-            </div>
-        </div>
         <div class="container pt-5 routes-list">
             <div class="routes">
-                <p class="fs-2">Список пешеходных маршрутов</p>
-            </div>
-            <div class="row gx-0">
-                <div class="col-10 col-md-5">
-                    <form role="search">
-                        <input class="form-control search-field" type="search" placeholder="Поиск" aria-label="Search">
-                    </form>
-                </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-light search-btn">Найти</button>
-                </div>
-                <div class="dropdown col-12 col-md-5 overflow-auto">
-                    <button class="btn btn-light btn-main-object dropdown-toggle float-md-end mt-3 mt-md-0"
-                        type="button" data-bs-toggle="dropdown" aria-expanded="false">Основной объект</button>
-                    <ul class="dropdown-menu main-objects-list">
-                        <li><a class="dropdown-item" href="#">Основной объект</a></li>
-                    </ul>
-                </div>
+                <p class="fs-2">Оставленные заявки</p>
             </div>
 
             <div class="py-3 row table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead class="">
                         <tr>
+                            <th scope="col">
+                                №
+                            </th>
                             <th scope="col" data-bs-toggle="tooltip" data-bs-placement="top"
                                 data-bs-custom-class="custom-tooltip"
-                                data-bs-title="This top tooltip is themed via CSS variables.">Название</th>
-                            <th scope="col">Описание</th>
-                            <th scope="col">Основные объекты</th>
-                            <th scope="col">Выбрать</th>
+                                data-bs-title="This top tooltip is themed via CSS variables.">Название маршрута</th>
+                            <th scope="col">Дата</th>
+                            <th scope="col">Стоимость</th>
+                            <th scope="col">Действия</th>
                         </tr>
                     </thead>
                     <tbody class="table-routes">
                         <!-- <tr class="fs-6">
-                            <th scope="row" class="">Нескучный</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td class="">
-                                <button class="btn btn-light btn-for-guides" type="button" aria-expanded="false">
-                                    Да
-                                </button>
+                            <th scope="row" class="">1</th>
+                            <td>Нескучный сад</td>
+                            <td>12.12.2022</td>
+                            <td>3000</td>
+                            <td class="d-flex flex-wrap">
+                                <i class="bi bi-eye-fill mx-2"></i>
+                                <i class="bi bi-pencil-square mx-2"></i>
+                                <i class="bi bi-trash-fill ms-2"></i>
                             </td>
                         </tr> -->
                     </tbody>
@@ -137,70 +91,6 @@
                         <li class="page-item"><a class="page-link" href="#">3</a></li> -->
                 </ul>
             </nav>
-        </div>
-
-        <div class="container pt-5 guides-list" id="guides-list">
-            <div class="guides">
-                <p class="fs-2">Доступные гиды по маршруту: Маршрут не выбран</p>
-            </div>
-            <div class="row">
-                <div class="col-12 col-md-6">
-                    <button class="btn btn-light btn-language dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">Язык экскурсии</button>
-                    <ul class="dropdown-menu language-list">
-                        <li><a class="dropdown-item" href="#">Язык экскурсии</a></li>
-                    </ul>
-                </div>
-                <div class="col-6 col-md-4">
-                    <div class="row">
-                        <div class="col-12 text-center fs-4">
-                            Опыт работы
-                        </div>
-                        <div class="col-6">
-                            <label for="work-min-experience" class="form-label">От</label>
-                            <input class="form-control" id="work-min-experience" placeholder="">
-                        </div>
-                        <div class="col-6">
-                            <label for="work-max-experience" class="form-label">До</label>
-                            <input class="form-control" id="work-max-experience" placeholder="">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 my-2">
-                    <button type="button" class="btn btn-light search-btn-guides">Найти</button>
-                </div>
-            </div>
-
-            <div class="py-3 row table-responsive mt-2">
-                <table class="table table-bordered table-hover">
-                    <thead class="">
-                        <tr>
-                            <th scope="col" class="text-center fs-1">#</th>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Языки</th>
-                            <th scope="col">Опыт работы</th>
-                            <th scope="col">Стоимость услуг в час</th>
-                            <th scope="col">Выбрать</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-guides">
-                        <!-- <tr class="fs-6">
-                            <th scope="row" class="fs-1 text-center"><span class="bi bi-person-rolodex"></span></th>
-                            <td>Mark</td>
-                            <td>Русский, Английский</td>
-                            <td>3 года</td>
-                            <td>Стоимость/час</td>
-                            <td class="">
-                                <button class="btn btn-light" type="button" aria-expanded="false">
-                                    Да
-                                </button>
-                            </td>
-                        </tr> -->
-                    </tbody>
-                </table>
-                <button type="button" class="btn btn-secondary text-warning checkout-route" data-bs-toggle="modal"
-                    data-bs-target="#addTask" data-action="show" disabled>Оформить заказ</button>
-            </div>
         </div>
 
         <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -278,6 +168,28 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="deleteTask" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Удаление заявки</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Вы уверены, что хотите удалить заявку   
+                            <span class="deleteTask"></span>
+                            ?</p>
+                        <form>
+                            <input type="hidden" name="taskid">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Нет</button>
+                        <button type="button" class="btn btn-primary delete" data-bs-dismiss="modal">Да</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer class="">
         <div class="py-3 me-auto d-flex justify-content-center align-items-center flex-column">
@@ -303,7 +215,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
         crossorigin="anonymous"></script>
-    <script src="main.js"></script>
+    <script src="person.js"></script>
 </body>
 
 </html>
