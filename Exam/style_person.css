@@ -39,3 +39,7 @@ main {
     top: 0;
     text-align: center;
 }
+
+textarea {
+    resize: none;
+}

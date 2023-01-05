@@ -668,9 +668,9 @@ async function sendRequest(event) {                               //оформл
     formForSend.append("duration", form.elements["selectLength"].value);
     formForSend.append("persons", form.elements["customRange2"].value);
     formForSend.append("price", form.elements["price"].value);
-    formForSend.append("optionFirst", form.elements["option1"].checked);
-    formForSend.append("optionSecond", form.elements["option2"].checked);
-
+    formForSend.append("optionFirst", (form.elements["option1"].checked) ? 1 : 0);
+    formForSend.append("optionSecond", (form.elements["option2"].checked) ? 1 : 0);
+    console.log(formForSend);
     let nUrl = new URL(url + "orders");
     nUrl.searchParams.append("api_key", apiKey);
     if (form.elements["time"].validity.valid) {

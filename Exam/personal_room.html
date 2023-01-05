@@ -93,59 +93,59 @@
             </nav>
         </div>
 
-        <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="showTask" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Оформление заявки</h1>
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Зявка номер <span class="idTaskForShow"></span></h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
                     <div class="modal-body">
                         <form id="create-task-form">
                             <div class="mb-3 row">
-                                <label for="name" class="col-form-label col-md-4">Имя гида</label>
+                                <label for="name" class="col-form-label col-md-4">ФИО гида: </label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control-plaintext" readonly id="name" name="name">
                                 </div>
                             </div>
                             <div class="mb-3 row">
-                                <label for="desc" class="col-form-label col-md-4">Маршрут</label>
+                                <label for="desc" class="col-form-label col-md-4">Название маршрута: </label>
                                 <div class="col-md-8">
                                     <input type="text" class="form-control-plaintext" readonly id="route" name="route">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 col-md-4 mb-1">
-                                    <label for="date" class="mb-1">Дата экскурсии</label>
-                                    <input type="date" id="date">
+                                    <label for="date" class="mb-1">Дата экскурсии: </label>
+                                    <input type="date" id="date" readonly>
                                 </div>
                                 <div class="col-6 col-md-4">
-                                    <label for="time" class="mb-1">Время начала (каждые 30 минут)</label>
-                                    <input type="time" id="time" min="09:00" max="23:00" step="1800" value="09:00">
+                                    <label for="time" class="mb-1">Время начала: </label>
+                                    <input type="time" id="time" min="09:00" max="23:00" step="1800" value="09:00" readonly>
                                 </div>
                                 <div class="col-6 col-md-4 mb-2">
-                                    <label for="selectLength" class="mb-1">Длительность экскурсии</label>
-                                    <select id="selectLength" class="form-select" aria-label="Default select example">
+                                    <label for="selectLength" class="mb-1">Длительность экскурсии: </label>
+                                    <select id="selectLength" class="form-select" disabled aria-label="Default select example">
                                         <option value="1" selected>1 час</option>
                                         <option value="2">2 часа</option>
                                         <option value="3">3 часа</option>
                                     </select>
                                 </div>
                                 <div class="col-6 my-2">
-                                    <label for="customRange2" class="form-label">Количество человек</label>
-                                    <input type="range" class="form-range" min="1" max="20" step="1" id="customRange2"
+                                    <label for="customRange2" class="form-label">Количество человек: </label>
+                                    <input type="range" disabled readonly class="form-range" min="1" max="20" step="1" id="customRange2"
                                         value="1">
-                                    <input type="text" class="form-control" id="number-people" name="number-people"
+                                    <input type="text" class="form-control" readonly id="number-people" name="number-people"
                                         value="1" disabled>
                                 </div>
-                                <label for="flexSwitchCheckDefault" class="mb-1">Дополнительные опции:</label>
-                                <div class="form-check form-switch">
+                                <label for="flexSwitchCheckDefault" class="mb-1 options">Дополнительные опции:</label>
+                                <div class="form-check form-switch form-switch-option1">
                                     <input class="form-check-input" type="checkbox" role="switch" id="option1">
                                     <label class="form-check-label" for="option1">Использовать скидку для
                                         пенсионеров</label>
                                 </div>
-                                <div class="form-check form-switch mb-2">
+                                <div class="form-check form-switch form-switch-option2 mb-2">
                                     <input class="form-check-input" type="checkbox" role="switch" id="option2">
                                     <label class="form-check-label" for="option2">Тематические сувениры для
                                         посетителей</label>
@@ -163,7 +163,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary back-btn" data-bs-dismiss="modal">Отмена</button>
                         <button type="button" form="create-task-form"
-                            class="btn btn-primary create-btn">Оформить</button>
+                            class="btn btn-primary create-btn">Готово</button>
                     </div>
                 </div>
             </div>
