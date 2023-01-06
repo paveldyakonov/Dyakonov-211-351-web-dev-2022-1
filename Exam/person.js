@@ -3,7 +3,7 @@ const apiKey = "c67f2277-7aed-4821-a074-2fc510e2aae2";
 let allData;
 
 
-const holidays = [
+const holidays = [                                              //Праздники
     "01-01",
     "02-23",
     "03-08",
@@ -13,7 +13,7 @@ const holidays = [
     "05-01",
 ];
 
-function showAlert(error, color) {
+function showAlert(error, color) {                              //Уведомления
     let alerts = document.querySelector(".alerts");
     let alert = document.createElement("div");
     alert.classList.add("alert", "alert-dismissible", color);
@@ -32,53 +32,45 @@ function showAlert(error, color) {
     setTimeout(() => alert.remove(), 4000);
 }
 
-async function nameOfRoute(idRoute) {
+async function nameOfRoute(idRoute) {                      //Узнать название маршрута
     let nUrl = new URL(url + "routes/" + idRoute);
     nUrl.searchParams.append("api_key", apiKey);
     let nameRoute = "";
     try {
         let response = await fetch(nUrl);
         let route = await response.json();
-        //console.log(route);
         nameRoute = route.name;
-        //console.log(route.name);
     } catch (error) {
         console.log(error.message);
     }
-    //console.log(nameRoute);
     return nameRoute;
 }
 
-async function nameOfGuide(idGuide) {
+async function nameOfGuide(idGuide) {                       //Узнать ФИО гида
     let nUrl = new URL(url + "guides/" + idGuide);
     nUrl.searchParams.append("api_key", apiKey);
     let nameGuide = "";
     try {
         let response = await fetch(nUrl);
         let guide = await response.json();
-        //console.log(route);
         document.querySelector(".table-routes").setAttribute("data-pricePerHour", guide.pricePerHour);
         nameGuide = guide.name;
-        //console.log(route.name);
     } catch (error) {
         console.log(error.message);
     }
-    //console.log(nameRoute);
     return nameGuide;
 }
 
-function clickOnTrash(event) {
+function clickOnTrash(event) {                                   //Открытие модального окна удаления заявки  
     if (!event.target.classList.contains("bi-trash-fill")) return;
     let idTask = event.target.parentNode.parentNode.id;
     document.querySelector(".delete").setAttribute("data-task-id", idTask);
 }
 
-function clickOnEye(event) {
+function clickOnEye(event) {                                     //Открытие модального окна просмотра заявки
     if (!event.target.classList.contains("bi-eye-fill")) return;
     let modal = document.querySelector("#showTask");
     modal.querySelector("#exampleModalLabel").textContent = "Заявка номер " + event.target.parentNode.parentNode.id;
-    //let numberOfTask = modal.querySelector(".idTaskForShow");
-    //numberOfTask.textContent = event.target.parentNode.parentNode.id;
 
     let guideId = event.target.parentNode.parentNode.getAttribute("data-guide-id");
     let guideFio = modal.querySelector("#name");
@@ -147,7 +139,7 @@ function clickOnEye(event) {
     createBtn.textContent = "Готово";
 }
 
-function numberOfVisitors() {
+function numberOfVisitors() {                              //Количество человек
     let form = document.querySelector("#create-task-form");
     let number = form.elements["customRange2"].value;
     let plus = 0;
@@ -157,7 +149,7 @@ function numberOfVisitors() {
     return plus;
 }
 
-function isThisDayOff() {
+function isThisDayOff() {                                  //Праздничный или выходной день
     let form = document.querySelector("#create-task-form");
     let isHoliday = new Date(form.elements["date"].value);
     let YearMonthDay = isHoliday.toJSON().slice(0, 10).split("-");
@@ -169,24 +161,22 @@ function isThisDayOff() {
     return plus;
 }
 
-function isItMorningOrEvening() {
+function isItMorningOrEvening() {                          //Время дня
     let form = document.querySelector("#create-task-form");
     let time = parseInt(form.elements["time"].value.split(":")[0]);
     let plus = 0;
     if ((time >= 9) && (time < 12)) plus = 400;
     else if ((time >= 20) && (time <= 23)) plus = 1000;
-    //console.log(time);
-    //console.log(plus);
     return plus;
 }
 
-function hoursNumber() {
+function hoursNumber() {                                  //Количество часов
     let form = document.querySelector("#create-task-form");
     let hours = form.elements["selectLength"].value;
     return hours;
 }
 
-function checkOptionFirst() {
+function checkOptionFirst() {                             //Выбор первой опции
     let option = document.querySelector("#option1");
     let price = 1;
     if (option.checked) {
@@ -195,7 +185,7 @@ function checkOptionFirst() {
     return price;
 }
 
-function checkOptionSecond() {
+function checkOptionSecond() {                            //Выбор второй опции
     let option = document.querySelector("#option2");
     let price = 0;
     let form = document.querySelector("#create-task-form");
@@ -206,25 +196,25 @@ function checkOptionSecond() {
     return price;
 }
 
-function guideServiceCost() {
+function guideServiceCost() {                           //Стоимость гида в час
     let price = document.querySelector(".table-routes").getAttribute("data-pricePerHour");
     return price;
 }
 
-function changeTotalPrice(event) {
+function changeTotalPrice(event) {                      //Изменение стоимости заявки
     let form = document.querySelector("#create-task-form");
     let price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
     form.elements["price"].value = parseInt(price);
 }
 
-function changeTotalPriceForPersons(event) {
+function changeTotalPriceForPersons(event) {            //Измение поля количества человек
     document.querySelector("#number-people").value = event.target.value;
     let form = document.querySelector("#create-task-form");
     let price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
     form.elements["price"].value = parseInt(price);
 }
 
-function clickOnPen(event) {
+function clickOnPen(event) {                            //Открытие модального окна редактирования заявки
     if (!event.target.classList.contains("bi-pencil-square")) return;
     let modal = document.querySelector("#showTask");
     modal.querySelector("#exampleModalLabel").textContent = "Редактирование заявки";
@@ -234,7 +224,6 @@ function clickOnPen(event) {
     let guideFio = modal.querySelector("#name");
     let priceHour = document.querySelector(".table-routes");
     nameOfGuide(guideId).then((response) => guideFio.value = response);
-    //pricePerHourOnPen(guideId).then((response) => priceHour.setAttribute("data-pricePerHour", response));
 
     let routeName = modal.querySelector("#route");
     routeName.value = event.target.parentNode.parentNode.children[1].textContent;
@@ -330,8 +319,7 @@ function clickOnPen(event) {
     createBtn.classList.add("create-change-task");
 }
 
-function createRoute(data, number) {
-    //console.log(data);
+function createRoute(data, number) {                    //Создание заявки
     let table = document.querySelector(".table-routes");
     let row = document.createElement("tr");
     row.setAttribute("id", data.id);
@@ -344,20 +332,17 @@ function createRoute(data, number) {
 
     let th = document.createElement("th");
     th.setAttribute("scope", "row");
-    //th.classList.add("text-wrap");
     th.textContent = number;
     row.append(th);
 
     let name = document.createElement("td");
     nameOfRoute(data.route_id).then((response) => name.textContent = response);
-    //console.log(name.textContent);
     row.append(name);
 
     let dateRoute = document.createElement("td");
     dateee = new Date(data.date);
     DayMonthYear = dateee.toJSON().slice(0, 10).split("-");
     dateRoute.textContent = DayMonthYear[2] + "." + DayMonthYear[1] + "." + DayMonthYear[0];
-    //console.log(dateRoute);
     row.append(dateRoute);
 
     let priceRoute = document.createElement("td");
@@ -398,7 +383,7 @@ function createRoute(data, number) {
     table.append(row);
 }
 
-function pageBtnHandler(event) {
+function pageBtnHandler(event) {                              //Переключение по страницам (пагинация)
     if (!event.target.classList.contains("page-link")) return;
     let oldBtn = document.querySelector(".active");
     oldBtn.classList.remove("active");
@@ -406,7 +391,7 @@ function pageBtnHandler(event) {
     createElements(allData);
 }
 
-function createElements(data) {
+function createElements(data) {                            //Создание списка заявок
     document.querySelector(".table-routes").innerHTML = "";
     let oldBtn = document.querySelector(".active");
     let pagination = document.querySelector(".pagination");
@@ -415,7 +400,6 @@ function createElements(data) {
         let li = document.createElement("li");
         li.classList.add("page-item");
         let a = document.createElement("a");
-        //if (i == "1") a.classList.add("active");
         a.classList.add("page-link");
         a.classList.add("bg-secondary");
         a.classList.add("text-warning");
@@ -433,10 +417,9 @@ function createElements(data) {
     for (let i = start; i < end; i++) {
         createRoute(data[i], i + 1);
     }
-    //console.log(data);
 }
 
-async function downloadData() {
+async function downloadData() {                  //Загрузка заявок
     let nUrl = new URL(url + "orders");
     nUrl.searchParams.append("api_key", apiKey);
 
@@ -450,7 +433,7 @@ async function downloadData() {
     }
 }
 
-async function deleteTask(event) {
+async function deleteTask(event) {                        //Удаление заявки
     if (!event.target.classList.contains("delete")) return;
     let idTask = event.target.getAttribute("data-task-id");
     let nUrl = new URL(url + "orders/" + idTask);
@@ -461,14 +444,15 @@ async function deleteTask(event) {
         });
         let data = await response.json();
         document.querySelector(".page-link").classList.add("active");
+        if (data.error) showAlert(data.error, "alert-danger");
+        else showAlert("Заявка успешно удалена", "alert-success");
         downloadData();
-        //console.log(data);
     } catch (error) {
         console.log(error.message);
     }
 }
 
-async function saveNewTask(event) {
+async function saveNewTask(event) {                      //Сохранение отредактированной заявки
     if (!event.target.classList.contains("create-change-task")) return;
     let formForSend = new FormData();
     let form = document.querySelector("#create-task-form");
@@ -483,7 +467,7 @@ async function saveNewTask(event) {
     let nUrl = new URL(url + "orders/" + taskId);
     nUrl.searchParams.append("api_key", apiKey);
 
-    if (form.elements["time"].validity.valid) {
+    if (form.elements["time"].validity.valid) {                      //Проверка валидности времени
         try {
             event.target.setAttribute("type", "button");
             let modal = document.querySelector("#showTask");
@@ -494,14 +478,12 @@ async function saveNewTask(event) {
                 body: formForSend,
             });
             let data = await response.json();
-            if (data.error) showAlert(data.error, "alert-danger"); //console.log(data.error);
+            if (data.error) showAlert(data.error, "alert-danger");
             else showAlert("Заявка успешно изменена", "alert-success");
             downloadData();
             console.log(data);
-            //console.log(data);
         } catch (error) {
             showAlert(error.message, "alert-danger");
-            //console.log(error.message);
         }
     } else {
         event.target.setAttribute("type", "submit");
