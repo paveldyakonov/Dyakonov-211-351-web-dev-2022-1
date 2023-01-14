@@ -3,7 +3,7 @@ const apiKey = "c67f2277-7aed-4821-a074-2fc510e2aae2";
 let allData;
 
 
-const holidays = [                                              //Праздники
+const holidays = [//Праздники
     "01-01",
     "02-23",
     "03-08",
@@ -13,7 +13,7 @@ const holidays = [                                              //Праздни
     "05-01",
 ];
 
-function showAlert(error, color) {                              //Уведомления
+function showAlert(error, color) {//Уведомления
     let alerts = document.querySelector(".alerts");
     let alert = document.createElement("div");
     alert.classList.add("alert", "alert-dismissible", color);
@@ -32,7 +32,7 @@ function showAlert(error, color) {                              //Уведомл
     setTimeout(() => alert.remove(), 4000);
 }
 
-async function nameOfRoute(idRoute) {                      //Узнать название маршрута
+async function nameOfRoute(idRoute) {//Узнать название маршрута
     let nUrl = new URL(url + "routes/" + idRoute);
     nUrl.searchParams.append("api_key", apiKey);
     let nameRoute = "";
@@ -46,14 +46,15 @@ async function nameOfRoute(idRoute) {                      //Узнать наз
     return nameRoute;
 }
 
-async function nameOfGuide(idGuide) {                       //Узнать ФИО гида
+async function nameOfGuide(idGuide) {//Узнать ФИО гида
     let nUrl = new URL(url + "guides/" + idGuide);
     nUrl.searchParams.append("api_key", apiKey);
     let nameGuide = "";
     try {
         let response = await fetch(nUrl);
         let guide = await response.json();
-        document.querySelector(".table-routes").setAttribute("data-pricePerHour", guide.pricePerHour);
+        document.querySelector(".table-routes").setAttribute(
+            "data-pricePerHour", guide.pricePerHour);
         nameGuide = guide.name;
     } catch (error) {
         console.log(error.message);
@@ -61,38 +62,44 @@ async function nameOfGuide(idGuide) {                       //Узнать ФИ�
     return nameGuide;
 }
 
-function clickOnTrash(event) {                                   //Открытие модального окна удаления заявки  
+function clickOnTrash(event) {//Открытие модального окна удаления заявки  
     if (!event.target.classList.contains("bi-trash-fill")) return;
     let idTask = event.target.parentNode.parentNode.id;
     document.querySelector(".delete").setAttribute("data-task-id", idTask);
 }
 
-function clickOnEye(event) {                                     //Открытие модального окна просмотра заявки
+function clickOnEye(event) {//Открытие модального окна просмотра заявки
     if (!event.target.classList.contains("bi-eye-fill")) return;
     let modal = document.querySelector("#showTask");
-    modal.querySelector("#exampleModalLabel").textContent = "Заявка номер " + event.target.parentNode.parentNode.id;
+    modal.querySelector("#exampleModalLabel").textContent = 
+    "Заявка номер " + event.target.parentNode.parentNode.id;
 
-    let guideId = event.target.parentNode.parentNode.getAttribute("data-guide-id");
+    let guideId = 
+    event.target.parentNode.parentNode.getAttribute("data-guide-id");
     let guideFio = modal.querySelector("#name");
     nameOfGuide(guideId).then((response) => guideFio.value = response);
 
     let routeName = modal.querySelector("#route");
-    routeName.value = event.target.parentNode.parentNode.children[1].textContent;
+    routeName.value = 
+    event.target.parentNode.parentNode.children[1].textContent;
 
     let date = modal.querySelector("#date");
     date.setAttribute("readonly", "");
-    let strDate = event.target.parentNode.parentNode.children[2].textContent.split(".");
+    let strDate = 
+    event.target.parentNode.parentNode.children[2].textContent.split(".");
     let trueDate = new Date(strDate[2] + "-" + strDate[1] + "-" + strDate[0]);
     date.value = trueDate.toJSON().slice(0, 10);
 
     let time = modal.querySelector("#time");
     time.setAttribute("readonly", "");
-    let timeRoute = event.target.parentNode.parentNode.getAttribute("data-time");
+    let timeRoute = 
+    event.target.parentNode.parentNode.getAttribute("data-time");
     time.value = timeRoute;
 
     let duration = modal.querySelector("#selectLength");
     duration.setAttribute("disabled", "");
-    let durationRoute = event.target.parentNode.parentNode.getAttribute("data-duration");
+    let durationRoute = 
+    event.target.parentNode.parentNode.getAttribute("data-duration");
     duration.value = durationRoute;
 
     let personsRange = modal.querySelector("#customRange2");
@@ -102,7 +109,8 @@ function clickOnEye(event) {                                     //Открыт�
     let personsText = modal.querySelector("#number-people");
     personsText.setAttribute("readonly", "");
     personsText.setAttribute("disabled", "");
-    let persons = event.target.parentNode.parentNode.getAttribute("data-persons");
+    let persons = 
+    event.target.parentNode.parentNode.getAttribute("data-persons");
     personsRange.value = persons;
     personsText.value = persons;
 
@@ -118,15 +126,18 @@ function clickOnEye(event) {                                     //Открыт�
     option1.classList.add("form-control-plaintext");
     option1.setAttribute("readonly", "");
     option1.value = "Скидка для пенсионеров (25% скидка)";
-    let routeOptionF = event.target.parentNode.parentNode.getAttribute("data-option1");
+    let routeOptionF = 
+    event.target.parentNode.parentNode.getAttribute("data-option1");
     if (routeOptionF == "true") options.append(option1);
 
     let option2 = document.createElement("textarea");
     option2.setAttribute("type", "text");
     option2.classList.add("form-control-plaintext");
     option2.setAttribute("readonly", "");
-    option2.value = "Тематические сувениры для посетителей (+500 рублей за каждого посетителя)";
-    let routeOptionS = event.target.parentNode.parentNode.getAttribute("data-option2");
+    option2.value = 
+    "Тематические сувениры для посетителей (+500 рублей за каждого посетителя)";
+    let routeOptionS = 
+    event.target.parentNode.parentNode.getAttribute("data-option2");
     if (routeOptionS == "true") options.append(option2);
 
     let price = modal.querySelector("#price");
@@ -139,7 +150,7 @@ function clickOnEye(event) {                                     //Открыт�
     createBtn.textContent = "Готово";
 }
 
-function numberOfVisitors() {                              //Количество человек
+function numberOfVisitors() {//Количество человек
     let form = document.querySelector("#create-task-form");
     let number = form.elements["customRange2"].value;
     let plus = 0;
@@ -149,19 +160,20 @@ function numberOfVisitors() {                              //Количеств�
     return plus;
 }
 
-function isThisDayOff() {                                  //Праздничный или выходной день
+function isThisDayOff() {//Праздничный или выходной день
     let form = document.querySelector("#create-task-form");
     let isHoliday = new Date(form.elements["date"].value);
     let YearMonthDay = isHoliday.toJSON().slice(0, 10).split("-");
     let MonthDay = YearMonthDay[1] + "-" + YearMonthDay[2];
     let plus = 1;
-    if ((isHoliday.getDay() == 0) || (isHoliday.getDay() == 6) || (holidays.includes(MonthDay))) {
+    if ((isHoliday.getDay() == 0) || (isHoliday.getDay() == 6) 
+    || (holidays.includes(MonthDay))) {
         plus = 1.5;
     }
     return plus;
 }
 
-function isItMorningOrEvening() {                          //Время дня
+function isItMorningOrEvening() {//Время дня
     let form = document.querySelector("#create-task-form");
     let time = parseInt(form.elements["time"].value.split(":")[0]);
     let plus = 0;
@@ -170,13 +182,13 @@ function isItMorningOrEvening() {                          //Время дня
     return plus;
 }
 
-function hoursNumber() {                                  //Количество часов
+function hoursNumber() {//Количество часов
     let form = document.querySelector("#create-task-form");
     let hours = form.elements["selectLength"].value;
     return hours;
 }
 
-function checkOptionFirst() {                             //Выбор первой опции
+function checkOptionFirst() {//Выбор первой опции
     let option = document.querySelector("#option1");
     let price = 1;
     if (option.checked) {
@@ -185,7 +197,7 @@ function checkOptionFirst() {                             //Выбор перв�
     return price;
 }
 
-function checkOptionSecond() {                            //Выбор второй опции
+function checkOptionSecond() {//Выбор второй опции
     let option = document.querySelector("#option2");
     let price = 0;
     let form = document.querySelector("#create-task-form");
@@ -196,29 +208,36 @@ function checkOptionSecond() {                            //Выбор втор�
     return price;
 }
 
-function guideServiceCost() {                           //Стоимость гида в час
-    let price = document.querySelector(".table-routes").getAttribute("data-pricePerHour");
+function guideServiceCost() {//Стоимость гида в час
+    let price = 
+    document.querySelector(".table-routes").getAttribute("data-pricePerHour");
     return price;
 }
 
-function changeTotalPrice(event) {                      //Изменение стоимости заявки
+function changeTotalPrice(event) {//Изменение стоимости заявки
     let form = document.querySelector("#create-task-form");
-    let price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
+    let price = (guideServiceCost() * hoursNumber() * isThisDayOff() + 
+    isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * 
+    checkOptionFirst();
     form.elements["price"].value = parseInt(price);
 }
 
-function changeTotalPriceForPersons(event) {            //Измение поля количества человек
+function changeTotalPriceForPersons(event) {//Измение поля количества человек
     document.querySelector("#number-people").value = event.target.value;
     let form = document.querySelector("#create-task-form");
-    let price = (guideServiceCost() * hoursNumber() * isThisDayOff() + isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * checkOptionFirst();
+    let price = (guideServiceCost() * hoursNumber() * isThisDayOff() + 
+    isItMorningOrEvening() + numberOfVisitors() + checkOptionSecond()) * 
+    checkOptionFirst();
     form.elements["price"].value = parseInt(price);
 }
 
-function clickOnPen(event) {                            //Открытие модального окна редактирования заявки
+function clickOnPen(event) {//Открытие модального окна редактирования заявки
     if (!event.target.classList.contains("bi-pencil-square")) return;
     let modal = document.querySelector("#showTask");
-    modal.querySelector("#exampleModalLabel").textContent = "Редактирование заявки";
-    let guideId = event.target.parentNode.parentNode.getAttribute("data-guide-id");
+    modal.querySelector("#exampleModalLabel").textContent = 
+    "Редактирование заявки";
+    let guideId = 
+    event.target.parentNode.parentNode.getAttribute("data-guide-id");
     let taskId = event.target.parentNode.parentNode.id;
     modal.querySelector(".create-btn").setAttribute("data-task-id", taskId);
     let guideFio = modal.querySelector("#name");
@@ -226,25 +245,29 @@ function clickOnPen(event) {                            //Открытие мо�
     nameOfGuide(guideId).then((response) => guideFio.value = response);
 
     let routeName = modal.querySelector("#route");
-    routeName.value = event.target.parentNode.parentNode.children[1].textContent;
+    routeName.value = 
+    event.target.parentNode.parentNode.children[1].textContent;
 
     let date = modal.querySelector("#date");
     date.removeAttribute("readonly");
     let newDate = new Date();
     newDate.setDate(newDate.getDate() + 1);
     date.setAttribute("min", newDate.toJSON().slice(0, 10));
-    let strDate = event.target.parentNode.parentNode.children[2].textContent.split(".");
+    let strDate = 
+    event.target.parentNode.parentNode.children[2].textContent.split(".");
     let trueDate = new Date(strDate[2] + "-" + strDate[1] + "-" + strDate[0]);
     date.value = trueDate.toJSON().slice(0, 10);
 
     let time = modal.querySelector("#time");
     time.removeAttribute("readonly");
-    let timeRoute = event.target.parentNode.parentNode.getAttribute("data-time");
+    let timeRoute = 
+    event.target.parentNode.parentNode.getAttribute("data-time");
     time.value = timeRoute;
 
     let duration = modal.querySelector("#selectLength");
     duration.removeAttribute("disabled");
-    let durationRoute = event.target.parentNode.parentNode.getAttribute("data-duration");
+    let durationRoute = 
+    event.target.parentNode.parentNode.getAttribute("data-duration");
     duration.value = durationRoute;
 
     let personsRange = modal.querySelector("#customRange2");
@@ -252,7 +275,8 @@ function clickOnPen(event) {                            //Открытие мо�
     personsRange.removeAttribute("disabled");
     personsRange.oninput = changeTotalPriceForPersons;
     let personsText = modal.querySelector("#number-people");
-    let persons = event.target.parentNode.parentNode.getAttribute("data-persons");
+    let persons = 
+    event.target.parentNode.parentNode.getAttribute("data-persons");
     personsRange.value = persons;
     personsText.value = persons;
 
@@ -270,7 +294,8 @@ function clickOnPen(event) {                            //Открытие мо�
     switchLabel1.classList.add("form-check-label");
     switchLabel1.setAttribute("for", "option1");
     switchLabel1.textContent = "Использовать скидку для пенсионеров";
-    let routeOptionF = event.target.parentNode.parentNode.getAttribute("data-option1");
+    let routeOptionF = 
+    event.target.parentNode.parentNode.getAttribute("data-option1");
     if (routeOptionF == "true") {
         switchInput1.checked = true;
         switchInput1.setAttribute("readonly", "");
@@ -295,7 +320,8 @@ function clickOnPen(event) {                            //Открытие мо�
     switchLabel2.classList.add("form-check-label");
     switchLabel2.setAttribute("for", "option2");
     switchLabel2.textContent = "Тематические сувениры для посетителей";
-    let routeOptionS = event.target.parentNode.parentNode.getAttribute("data-option2");
+    let routeOptionS = 
+    event.target.parentNode.parentNode.getAttribute("data-option2");
     if (routeOptionS == "true") {
         switchInput2.checked = true;
         switchInput2.setAttribute("readonly", "");
@@ -319,7 +345,7 @@ function clickOnPen(event) {                            //Открытие мо�
     createBtn.classList.add("create-change-task");
 }
 
-function createRoute(data, number) {                    //Создание заявки
+function createRoute(data, number) {//Создание заявки
     let table = document.querySelector(".table-routes");
     let row = document.createElement("tr");
     row.setAttribute("id", data.id);
@@ -342,7 +368,8 @@ function createRoute(data, number) {                    //Создание за�
     let dateRoute = document.createElement("td");
     dateee = new Date(data.date);
     DayMonthYear = dateee.toJSON().slice(0, 10).split("-");
-    dateRoute.textContent = DayMonthYear[2] + "." + DayMonthYear[1] + "." + DayMonthYear[0];
+    dateRoute.textContent = 
+    DayMonthYear[2] + "." + DayMonthYear[1] + "." + DayMonthYear[0];
     row.append(dateRoute);
 
     let priceRoute = document.createElement("td");
@@ -383,7 +410,7 @@ function createRoute(data, number) {                    //Создание за�
     table.append(row);
 }
 
-function pageBtnHandler(event) {                              //Переключение по страницам (пагинация)
+function pageBtnHandler(event) {//Переключение по страницам (пагинация)
     if (!event.target.classList.contains("page-link")) return;
     let oldBtn = document.querySelector(".active");
     oldBtn.classList.remove("active");
@@ -391,7 +418,7 @@ function pageBtnHandler(event) {                              //Переключ
     createElements(allData);
 }
 
-function createElements(data) {                            //Создание списка заявок
+function createElements(data) {//Создание списка заявок
     document.querySelector(".table-routes").innerHTML = "";
     let oldBtn = document.querySelector(".active");
     let pagination = document.querySelector(".pagination");
@@ -419,7 +446,7 @@ function createElements(data) {                            //Создание с
     }
 }
 
-async function downloadData() {                  //Загрузка заявок
+async function downloadData() {//Загрузка заявок
     let nUrl = new URL(url + "orders");
     nUrl.searchParams.append("api_key", apiKey);
 
@@ -433,7 +460,7 @@ async function downloadData() {                  //Загрузка заявок
     }
 }
 
-async function deleteTask(event) {                        //Удаление заявки
+async function deleteTask(event) {//Удаление заявки
     if (!event.target.classList.contains("delete")) return;
     let idTask = event.target.getAttribute("data-task-id");
     let nUrl = new URL(url + "orders/" + idTask);
@@ -452,7 +479,7 @@ async function deleteTask(event) {                        //Удаление з�
     }
 }
 
-async function saveNewTask(event) {                      //Сохранение отредактированной заявки
+async function saveNewTask(event) {//Сохранение отредактированной заявки
     if (!event.target.classList.contains("create-change-task")) return;
     let formForSend = new FormData();
     let form = document.querySelector("#create-task-form");
@@ -461,13 +488,15 @@ async function saveNewTask(event) {                      //Сохранение 
     formForSend.append("duration", form.elements["selectLength"].value);
     formForSend.append("persons", form.elements["customRange2"].value);
     formForSend.append("price", form.elements["price"].value);
-    formForSend.append("optionFirst", (form.elements["option1"].checked) ? 1 : 0);
-    formForSend.append("optionSecond", (form.elements["option2"].checked) ? 1 : 0);
+    formForSend.append(
+        "optionFirst", (form.elements["option1"].checked) ? 1 : 0);
+    formForSend.append(
+        "optionSecond", (form.elements["option2"].checked) ? 1 : 0);
     let taskId = event.target.getAttribute("data-task-id");
     let nUrl = new URL(url + "orders/" + taskId);
     nUrl.searchParams.append("api_key", apiKey);
 
-    if (form.elements["time"].validity.valid) {                      //Проверка валидности времени
+    if (form.elements["time"].validity.valid) {//Проверка валидности времени
         try {
             event.target.setAttribute("type", "button");
             let modal = document.querySelector("#showTask");
