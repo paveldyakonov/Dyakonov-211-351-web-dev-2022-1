@@ -415,7 +415,33 @@ function pageBtnHandler(event) {//Переключение по страница
     let oldBtn = document.querySelector(".active");
     oldBtn.classList.remove("active");
     event.target.classList.add("active");
-    createElements(allData);
+    //createElements(allData);
+    document.querySelector(".table-routes").innerHTML = "";
+    let oldBtn1 = document.querySelector(".active");
+    let pagination = document.querySelector(".pagination");
+    pagination.innerHTML = "";
+    for (let i = 1; i < Math.ceil(allData.length / 5) + 1; i++) {
+        let li = document.createElement("li");
+        li.classList.add("page-item");
+        let a = document.createElement("a");
+        a.classList.add("page-link");
+        a.classList.add("bg-secondary");
+        a.classList.add("text-warning");
+        if (oldBtn1.textContent == i) a.classList.add("active");
+        a.setAttribute("href", "#");
+        a.textContent = i;
+        a.onclick = pageBtnHandler;
+        li.append(a);
+        pagination.append(li);
+    }
+
+    let currentPage = document.querySelector(".active").textContent;
+    let start = currentPage * 5 - 5;
+    let end = 
+    (start + 5) > allData.length ? (start + allData.length % 5) : start + 5;
+    for (let i = start; i < end; i++) {
+        createRoute(allData[i], i + 1);
+    }
 }
 
 function createElements(data) {//Создание списка заявок
