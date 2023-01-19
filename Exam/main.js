@@ -73,10 +73,10 @@ function downloadMainObjectsList(data) {//Создание списка дост
                 }
                 a.textContent = shortString + "...";
                 //a.textContent = newObj;
-                a.setAttribute("data-bs-toggle", "tooltip");
-                a.setAttribute("data-bs-placement", "top");
-                a.setAttribute("data-bs-custom-class", "custom-tooltip");
-                a.setAttribute("data-bs-title", newObj);
+                // a.setAttribute("data-bs-toggle", "tooltip");
+                // a.setAttribute("data-bs-placement", "top");
+                // a.setAttribute("data-bs-custom-class", "custom-tooltip");
+                // a.setAttribute("data-bs-title", newObj);
                 newList.push(newObj);
                 li.append(a);
                 dropList.append(li);
