@@ -65,13 +65,14 @@ function downloadMainObjectsList(data) {//Создание списка дост
                 let numOfChars = 0;
                 let shortString = "";
                 for (let char of newObj) {
-                    if (numOfChars == 13) {
+                    if (numOfChars == 30) {
                         break;
                     }
                     numOfChars++;
                     shortString += char;
                 }
                 a.textContent = shortString + "...";
+                //a.textContent = newObj;
                 a.setAttribute("data-bs-toggle", "tooltip");
                 a.setAttribute("data-bs-placement", "top");
                 a.setAttribute("data-bs-custom-class", "custom-tooltip");
@@ -353,7 +354,7 @@ async function downloadData() {//Загрузка данных
 }
 
 function createTableRouteElements(allData) {//Создание элементов
-    console.log(allData);
+    //console.log(allData);
     document.querySelector(".table-routes").innerHTML = "";
     let oldBtn = document.querySelector(".active");
     let pagination = document.querySelector(".pagination");
@@ -396,9 +397,9 @@ function createTableRouteElements(allData) {//Создание элементо�
         createRoute(allData[i]);
     }
     let childs = document.querySelector(".table-routes").children;
-    for (let child of childs) {
-        console.log(child.firstElementChild.getAttribute("data-bs-title"));
-    }
+    // for (let child of childs) {
+    //     console.log(child.firstElementChild.getAttribute("data-bs-title"));
+    // }
 
     const tooltipTriggerList = 
     document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -413,11 +414,13 @@ async function searchBtnHandler() {//Поиск записей
     let mainObj = document.querySelector(".btn-main-object");
     let newRoutes = [];
     try {
-        if (searchField == "" && mainObj.textContent == "Основной объект")
-            downloadData();//Поиск без фильтров
+        if (searchField == "" && mainObj.textContent == "Основной объект") 
+            createTableElementsOnDownload(allRoutes);
+            //downloadData();//Поиск без фильтров
         else {
-            let response = await fetch(nUrl);
-            let data = await response.json();
+            // let response = await fetch(nUrl);
+            // let data = await response.json();
+            let data = allRoutes;
             let str = mainObj.textContent.slice(0, -4);
             for (let route of data) {
                 if (mainObj.textContent == "Основной объект") {

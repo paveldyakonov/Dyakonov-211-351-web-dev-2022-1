@@ -98,6 +98,7 @@ function clickOnEye(event) {//Открытие модального окна п�
 
     let duration = modal.querySelector("#selectLength");
     duration.setAttribute("disabled", "");
+    duration.setAttribute("readonly", "");
     let durationRoute = 
     event.target.parentNode.parentNode.getAttribute("data-duration");
     duration.value = durationRoute;
